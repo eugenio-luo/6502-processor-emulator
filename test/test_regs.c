@@ -2,6 +2,7 @@
 #include "test_check.h"
 #include "system.h"
 #include "cpu/registers.h"
+#include "cpu/cpu.h"
 
 void
 test_regs(void)
@@ -14,8 +15,10 @@ test_regs(void)
         /* 4-6. check if reset state is correct and if reg_set, reg_clear_flags work */
         reg_set_x(10);
         reg_clear_flags(INT_DISABLE);
-        sys_reset();
+        sys_reset(SOFT_RESET);
         TEST_CHECK("regs", 4, reg_get_x() == 10);
         TEST_CHECK("regs", 5, reg_get_sp() == 0xFD - 3);
         TEST_CHECK("regs", 6, reg_get_flags() == (INT_DISABLE | BREAK_COM0 | BREAK_COM1));
+
+        sys_reset(HARD_RESET);
 }

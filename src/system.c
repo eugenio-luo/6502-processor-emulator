@@ -11,13 +11,14 @@ sys_init(void)
         log_write("[system.c: sys_init] system initialization...");
 
         regs_init();
+        mem_init();
 }
 
 void
-sys_reset(void)
+sys_reset(int hard)
 {
-        regs_reset(SOFT_RESET);
-        mem_reset();
+        regs_reset(hard);
+        mem_reset(hard);
 }        
 
 void
