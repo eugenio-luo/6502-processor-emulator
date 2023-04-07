@@ -1,5 +1,5 @@
 SRC_DIR := src
-TEST_DIR := debug
+TEST_DIR := test 
 INCLUDE_DIR := src/include
 TEST_INCLUDE_DIR := test/include
 LOG_DIR := logs/
@@ -18,6 +18,8 @@ CFLAGS := -I$(INCLUDE_DIR) $(W_FLAGS) -D_DEFAULT_SOURCE -DLOG_DIR_PATH='"$(LOG_D
 #SDL_FLAGS := -lSDL2 -lSDL2_ttf
 SDL_FLAGS := 
 TEST_CFLAGS := -DTEST -I$(TEST_INCLUDE_DIR) $(CFLAGS) 
+
+.PHONY: all test clean
 
 all: compile
 
