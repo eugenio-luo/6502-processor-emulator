@@ -8,7 +8,6 @@
    - implement the B flags
 */
 
-#define INIT_STACK_PTR   0xFD
 #define RESET_STACK_DEC  3
 
 typedef struct {

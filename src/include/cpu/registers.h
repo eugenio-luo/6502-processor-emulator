@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define INIT_STACK_PTR   0xFD
+
 typedef enum {
         CARRY_FLAG   = (1 << 0),
         ZERO_FLAG    = (1 << 1),
