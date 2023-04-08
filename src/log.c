@@ -70,23 +70,30 @@ log_write(const char *fmt, ...)
 void
 log_error(const char *fmt, ...)
 {
-#ifdef TEST
-
         (void) fmt;
-        test_set_err(1);
-        
-#else
-        
         va_list args, copy;
         va_start(args, fmt);
         va_copy(copy, args);
 
-        log_vfprintf(stderr, RED BOLD "[ERROR]" RESET, fmt, args);
-        if (log_file)
-                log_vfprintf(log_file, RED BOLD "[ERROR]" RESET, fmt, copy);
+#ifdef TEST
 
+        test_set_err(1);
+        const char *initial = NULL;
+
+#else
+
+        const char *initial = RED BOLD "[ERROR]" RESET;
+
+#endif
+        
+        log_vfprintf(stderr, initial, fmt, args);
+        if (log_file)
+                log_vfprintf(log_file, initial, fmt, copy);
         va_end(args);
         va_end(copy);
+
+#ifndef TEST
+
         exit(1);
 
 #endif

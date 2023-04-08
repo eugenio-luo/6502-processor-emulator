@@ -13,7 +13,8 @@
                           RESET " %s %d", N, M);                        \
                 test_set_err(0);                                        \
         } else {                                                        \
-                log_error("FAILED: test %s %d", N, M);                  \
+                log_error(RED BOLD "[FAILED]"                           \
+                          RESET " %s %d", N, M);                        \
                 exit(1);                                                \
         }                                                               \
         
