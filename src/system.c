@@ -1,7 +1,6 @@
 #include "system.h"
 #include "log.h"
-#include "cpu/registers.h"
-#include "cpu/memory.h"
+#include "cpu/cpu.h"
 
 void
 sys_init(void)
@@ -10,15 +9,13 @@ sys_init(void)
 
         log_write("[system.c: sys_init] system initialization...");
 
-        regs_init();
-        mem_init();
+        cpu_init();
 }
 
 void
 sys_reset(int hard)
 {
-        regs_reset(hard);
-        mem_reset(hard);
+        cpu_reset(hard);
 }        
 
 void

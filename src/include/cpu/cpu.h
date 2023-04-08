@@ -9,5 +9,6 @@ typedef uint16_t addr_t;
 #define SOFT_RESET   0
 
 void cpu_init(void);
+void cpu_reset(int hard);
 
 #endif
