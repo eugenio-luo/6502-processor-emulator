@@ -1,6 +1,5 @@
-#include "test_mem.h"
+#include "test_cpu.h"
 #include "test_check.h"
-#include "system.h"
 #include "cpu/memory.h"
 
 void
@@ -23,9 +22,9 @@ test_mem(void)
         TEST_CHECK("mem", 4, mem_get(0x1973) == 0xFF);
 
         /* 5. check if soft reset state is correct */
-        sys_reset(SOFT_RESET);
+        cpu_reset(SOFT_RESET);
         TEST_CHECK("mem", 5, mem_get(0x173) == 0xFF);
 
-        sys_reset(HARD_RESET);
+        cpu_reset(HARD_RESET);
 }
 

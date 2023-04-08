@@ -1,6 +1,5 @@
 #include "test.h"
-#include "test_regs.h"
-#include "test_mem.h"
+#include "test_cpu.h"
 #include "cpu/registers.h"
 
 static int error_state = 0;
@@ -10,6 +9,7 @@ test_sys(void)
 {
         test_regs();
         test_mem();
+        test_stack();
 }
 
 void

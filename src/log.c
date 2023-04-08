@@ -119,7 +119,7 @@ log_warning(const char *fmt, ...)
 
         log_vfprintf(stderr, YELLOW BOLD "[WARNING]" RESET, fmt, args);
         if (log_file)
-                log_vfprintf(stderr, YELLOW BOLD "[WARNING]" RESET, fmt, copy);
+                log_vfprintf(log_file, YELLOW BOLD "[WARNING]" RESET, fmt, copy);
 
         va_end(args);
         va_end(copy);
