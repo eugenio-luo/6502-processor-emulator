@@ -131,3 +131,15 @@ reg_get_flags(void)
 {
         return regs.flags;
 }
+
+int
+reg_is_flag_set(reg_flag_t val)
+{
+        return regs.flags & val;
+}
+
+void
+reg_inc_pc(void)
+{
+        ++regs.pc;
+}

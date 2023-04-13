@@ -34,5 +34,8 @@ uint8_t reg_get_acc(void);
 uint8_t reg_get_x(void);
 uint8_t reg_get_y(void);
 uint8_t reg_get_flags(void);
+int reg_is_flag_set(reg_flag_t val);
+
+void reg_inc_pc(void);
 
 #endif
