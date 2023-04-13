@@ -108,7 +108,7 @@ static addr_t
 addr_mode_indx_indr(uint8_t a, uint8_t b)
 {
         addr_t addr = addr_mode_zerox(a, b);
-
+        
         uint8_t val0 = mem_get(addr);
         uint8_t val1 = mem_get(addr + 1);
 
@@ -125,7 +125,7 @@ addr_mode_indr_indy(uint8_t a, uint8_t b)
         addr_t addr = (val1 << 8) | val0;
 
         check_page_cross(addr, y);
-        
+
         return addr + y;
 }
 
