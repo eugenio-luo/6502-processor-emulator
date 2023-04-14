@@ -49,6 +49,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [TAY] = OPCODE(op_tay, IMPL, 0, 2),
         [TSX] = OPCODE(op_tsx, IMPL, 0, 2),
         [TXA] = OPCODE(op_txa, IMPL, 0, 2),
+        [TXS] = OPCODE(op_txs, IMPL, 0, 2),
 };
 
 opcode_t *

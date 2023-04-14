@@ -18,5 +18,6 @@ OP_FUNC_DECL(op_tax);
 OP_FUNC_DECL(op_tay);
 OP_FUNC_DECL(op_tsx);
 OP_FUNC_DECL(op_txa);
+OP_FUNC_DECL(op_txs);
 
 #endif
