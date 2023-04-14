@@ -29,5 +29,12 @@ test_transfer(void)
         TEST_CHECK("tax", 3, cycles == 2 && reg_get_x() == 0xFF &&
                    reg_is_flag_set(NEG_FLAG));
         cpu_reset(HARD_RESET);
+
+        /* 1. check if 0xAA works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(10);
+        cycles = op_exec(TAY, 0, 0);
+        TEST_CHECK("tay", 1, cycles == 2 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
 }
 

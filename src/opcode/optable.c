@@ -46,6 +46,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [STY_ZEROX] = OPCODE(op_sty, ZEROX, 1, 4),
 
         [TAX] = OPCODE(op_tax, IMPL, 0, 2),
+        [TAY] = OPCODE(op_tay, IMPL, 0, 2),
 };
 
 opcode_t *

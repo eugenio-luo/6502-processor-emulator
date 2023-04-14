@@ -15,5 +15,6 @@ OP_FUNC_DECL(op_stx);
 OP_FUNC_DECL(op_sty);
 
 OP_FUNC_DECL(op_tax);
+OP_FUNC_DECL(op_tay);
 
 #endif
