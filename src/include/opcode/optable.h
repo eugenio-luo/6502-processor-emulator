@@ -59,6 +59,7 @@ enum {
 
         TAX = 0xAA,
         TAY = 0xA8,
+        TSX = 0xBA,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
