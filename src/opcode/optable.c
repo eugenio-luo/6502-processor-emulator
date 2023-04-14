@@ -39,6 +39,10 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [STX_ABS] = OPCODE(op_stx, ABS, 2, 4),
         [STX_ZERO] = OPCODE(op_stx, ZERO, 1, 3),
         [STX_ZEROY] = OPCODE(op_stx, ZEROY, 1, 4),
+
+        [STY_ABS] = OPCODE(op_sty, ABS, 2, 4),
+        [STY_ZERO] = OPCODE(op_sty, ZERO, 1, 3),
+        [STY_ZEROX] = OPCODE(op_sty, ZEROX, 1, 4),
 };
 
 opcode_t *

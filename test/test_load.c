@@ -343,7 +343,32 @@ test_stx(void)
         TEST_CHECK("stx", 3, cycles == 4 && mem_get(0x99) == 10);
         cpu_reset(HARD_RESET);
 }
+
+static void
+test_sty(void)
+{
+        int cycles;
         
+        /* 1. check if 0x8C works */
+        reg_set_y(10);
+        cycles = op_exec(STY_ABS, 0x89, 0x1);
+        TEST_CHECK("sty", 1, cycles == 4 && mem_get(0x189) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if 0x84 works */
+        reg_set_y(10);
+        cycles = op_exec(STY_ZERO, 0x89, 0);
+        TEST_CHECK("sty", 2, cycles == 3 && mem_get(0x89) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if 0x94 works */
+        reg_set_y(10);
+        reg_set_x(0x10);
+        cycles = op_exec(STY_ZEROX, 0x89, 0);
+        TEST_CHECK("sty", 3, cycles == 4 && mem_get(0x99) == 10);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_load(void)
 {
@@ -352,4 +377,5 @@ test_load(void)
         test_ldy();
         test_sta();
         test_stx();
+        test_sty();
 }
