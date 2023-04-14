@@ -40,3 +40,16 @@ op_tsx(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_txa(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+
+        uint8_t val = reg_get_x();
+        reg_set_acc(val);
+
+        set_affected_flags(val);
+
+        return 0;
+}

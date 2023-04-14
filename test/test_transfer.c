@@ -44,5 +44,11 @@ test_transfer(void)
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
         cpu_reset(HARD_RESET);
 
+        /* 1. check if 0x8A works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_x(10);
+        cycles = op_exec(TXA, 0, 0);
+        TEST_CHECK("txa", 1, cycles == 2 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
 }
 
