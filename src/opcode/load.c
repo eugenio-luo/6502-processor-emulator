@@ -55,3 +55,12 @@ op_sta(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_stx(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        uint8_t val = reg_get_x();
+        op_set_addr_val(addr_mode, a, b, val);
+
+        return 0;
+}

@@ -48,6 +48,10 @@ enum {
         STA_ZEROX = 0x95,
         STA_INDX_INDR = 0x81,
         STA_INDR_INDY = 0x91,
+
+        STX_ABS = 0x8E,
+        STX_ZERO = 0x86,
+        STX_ZEROY = 0x96,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

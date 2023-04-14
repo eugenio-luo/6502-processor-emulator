@@ -9,5 +9,6 @@ OP_FUNC_DECL(op_lda);
 OP_FUNC_DECL(op_ldx);
 OP_FUNC_DECL(op_ldy);
 OP_FUNC_DECL(op_sta);
+OP_FUNC_DECL(op_stx);
 
 #endif
