@@ -56,6 +56,8 @@ enum {
         STY_ABS = 0x8C,
         STY_ZERO = 0x84,
         STY_ZEROX = 0x94,
+
+        TAX = 0xAA,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

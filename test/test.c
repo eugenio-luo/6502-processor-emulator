@@ -27,6 +27,7 @@ static void
 test_op(void)
 {
         test_load();
+        test_transfer();
 }         
 
 void

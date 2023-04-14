@@ -17,7 +17,7 @@ test_lda(void)
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
         cpu_reset(HARD_RESET);
 
-        /* 2. check if ZERO_FLAG get set with zero number as 0xA9 argument */
+        /* 2. check if ZERO_FLAG get set with zero as 0xA9 argument */
         cycles = op_exec(LDA_IMM, 0, 0);  
         TEST_CHECK("lda", 2, cycles == 2 && reg_get_acc() == 0 &&
                    reg_is_flag_set(ZERO_FLAG));
@@ -133,7 +133,7 @@ test_ldx(void)
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
         cpu_reset(HARD_RESET);
 
-        /* 2. check if ZERO_FLAG get set with zero number as 0xA2 argument */
+        /* 2. check if ZERO_FLAG get set with zero as 0xA2 argument */
         cycles = op_exec(LDX_IMM, 0, 0);  
         TEST_CHECK("ldx", 2, cycles == 2 && reg_get_x() == 0 &&
                    reg_is_flag_set(ZERO_FLAG));
@@ -203,7 +203,7 @@ test_ldy(void)
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
         cpu_reset(HARD_RESET);
 
-        /* 2. check if ZERO_FLAG get set with zero number as 0xA0 argument */
+        /* 2. check if ZERO_FLAG get set with zero as 0xA0 argument */
         cycles = op_exec(LDY_IMM, 0, 0);  
         TEST_CHECK("ldy", 2, cycles == 2 && reg_get_y() == 0 &&
                    reg_is_flag_set(ZERO_FLAG));
