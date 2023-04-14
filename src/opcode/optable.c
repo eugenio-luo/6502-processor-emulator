@@ -1,5 +1,6 @@
 #include "opcode/optable.h"
 #include "opcode/opfunc.h"
+#include "cpu/registers.h"
 
 #define OPCODE(FUNC, ADDR_MODE, ARGS, CYCLES)         \
         {FUNC, ADDR_MODE, ARGS, CYCLES}
@@ -49,4 +50,14 @@ opcode_t *
 op_get(uint8_t idx)
 {
         return &op_table[idx];
+}
+
+void
+set_affected_flags(uint8_t val)
+{
+        reg_clear_flags(ZERO_FLAG | NEG_FLAG);
+        if (val == 0)
+                reg_set_flags(ZERO_FLAG);
+        else if (val & 0x80)
+                reg_set_flags(NEG_FLAG);
 }

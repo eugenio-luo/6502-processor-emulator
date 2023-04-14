@@ -1,6 +1,7 @@
 #include "opcode/opcode.h"
 #include "log.h"
 #include "opcode/optable.h"
+#include "opcode/opfunc.h"
 #include "cpu/memory.h"
 #include "cpu/registers.h"
 
