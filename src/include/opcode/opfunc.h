@@ -4,5 +4,7 @@
 #include "opcode/optable.h"
 
 int op_lda(addr_mode_t addr_mode, uint8_t a, uint8_t b);
+int op_ldx(addr_mode_t addr_mode, uint8_t a, uint8_t b);
+int op_ldy(addr_mode_t addr_mode, uint8_t a, uint8_t b);
 
 #endif

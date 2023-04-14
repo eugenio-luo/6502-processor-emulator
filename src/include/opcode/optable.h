@@ -20,14 +20,19 @@ typedef enum {
 } addr_mode_t;
 
 enum {
+        LDA_INDX_INDR = 0xA1,
+        LDX_IMM = 0xA2,
+        LDA_ZERO = 0xA5,
+        LDX_ZERO = 0xA6,
         LDA_IMM = 0xA9,
         LDA_ABS = 0xAD,
-        LDA_ABSX = 0xBD,
-        LDA_ABSY = 0xB9,
-        LDA_ZERO = 0xA5,
-        LDA_ZEROX = 0xB5,
-        LDA_INDX_INDR = 0xA1,
+        LDX_ABS = 0xAE,
         LDA_INDR_INDY = 0xB1,
+        LDA_ZEROX = 0xB5,
+        LDX_ZEROY = 0xB6,
+        LDA_ABSY = 0xB9,
+        LDA_ABSX = 0xBD,
+        LDX_ABSY = 0xBE,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
