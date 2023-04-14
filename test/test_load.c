@@ -192,9 +192,80 @@ test_ldx(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_ldy(void)
+{
+        int cycles;
+        
+        /* 1. check if 0xA0 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        cycles = op_exec(LDY_IMM, 10, 0);
+        TEST_CHECK("ldy", 1, cycles == 2 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG get set with zero number as 0xA0 argument */
+        cycles = op_exec(LDY_IMM, 0, 0);  
+        TEST_CHECK("ldy", 2, cycles == 2 && reg_get_y() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG get set with negative number as 0xA0 argument */
+        cycles = op_exec(LDY_IMM, -1, 0);  
+        TEST_CHECK("ldy", 3, cycles == 2 && reg_get_y() == 0xFF &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0xAC works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        mem_set(0x6FF, 10);
+        cycles = op_exec(LDY_ABS, 0xFF, 0x6);
+        TEST_CHECK("ldy", 4, cycles == 4 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0xBC works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        mem_set(0x6FF, 10);
+        reg_set_x(0x1F);
+        cycles = op_exec(LDY_ABSX, 0xE0, 0x6);
+        TEST_CHECK("ldy", 5, cycles == 4 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0xBC cycles increases if page boundary is crossed */
+        mem_set(0x70F, 10);
+        reg_set_x(0x1F);
+        cycles = op_exec(LDY_ABSX, 0xF0, 0x6);
+        TEST_CHECK("ldy", 6, cycles == 5 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 7. check if 0xA4 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        mem_set(0x85, 10);
+        cycles = op_exec(LDY_ZERO, 0x85, 0);
+        TEST_CHECK("ldy", 7, cycles == 3 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 8. check if 0xB4 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        mem_set(0x85, 10);
+        reg_set_x(0x10);
+        cycles = op_exec(LDY_ZEROX, 0x75, 0);
+        TEST_CHECK("ldy", 8, cycles == 4 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 9. check if 0xB6 wraps around */
+        mem_set(0x1, 10);
+        reg_set_x(0x10);
+        cycles = op_exec(LDY_ZEROX, 0xF1, 0);
+        TEST_CHECK("ldy", 9, cycles == 4 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_load(void)
 {
         test_lda();
         test_ldx();
+        test_ldy();
 }

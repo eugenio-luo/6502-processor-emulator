@@ -21,6 +21,12 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [LDX_ABSY] = OPCODE(op_ldx, ABSY, 2, 4),
         [LDX_ZERO] = OPCODE(op_ldx, ZERO, 1, 3),
         [LDX_ZEROY] = OPCODE(op_ldx, ZEROY, 1, 4),
+
+        [LDY_IMM] = OPCODE(op_ldy, IMM, 1, 2),
+        [LDY_ABS] = OPCODE(op_ldy, ABS, 2, 4),
+        [LDY_ABSX] = OPCODE(op_ldy, ABSX, 2, 4),
+        [LDY_ZERO] = OPCODE(op_ldy, ZERO, 1, 3),
+        [LDY_ZEROX] = OPCODE(op_ldy, ZEROX, 1, 4),
 };
 
 opcode_t *
