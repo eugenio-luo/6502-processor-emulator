@@ -145,7 +145,7 @@ static addr_func_t addr_mode_table[] = {
         addr_mode_indr_indy,
 };
 
-addr_t
+static addr_t
 op_get_addr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         is_page_crossed = 0;
@@ -169,4 +169,10 @@ op_get_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         default:
                 return mem_get(op_get_addr(addr_mode, a, b));
         }
+}
+
+void
+op_set_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b, uint8_t val)
+{
+        mem_set(op_get_addr(addr_mode, a, b), val);
 }

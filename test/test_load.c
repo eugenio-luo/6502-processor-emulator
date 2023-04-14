@@ -262,10 +262,68 @@ test_ldy(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_sta(void)
+{
+        int cycles;
+
+        /* 1. check if 0x8D works */
+        reg_set_acc(10);
+        cycles = op_exec(STA_ABS, 0x89, 0x1);
+        TEST_CHECK("sta", 1, cycles == 4 && mem_get(0x189) == 10);
+        cpu_reset(HARD_RESET);
+        
+        /* 2. check if 0x9D works */
+        reg_set_acc(10);
+        reg_set_x(0x10);
+        cycles = op_exec(STA_ABSX, 0x89, 0x1);
+        TEST_CHECK("sta", 2, cycles == 5 && mem_get(0x199) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if 0x99 works */
+        reg_set_acc(10);
+        reg_set_y(0x10);
+        cycles = op_exec(STA_ABSY, 0x89, 0x1);
+        TEST_CHECK("sta", 3, cycles == 5 && mem_get(0x199) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0x85 works */
+        reg_set_acc(10);
+        cycles = op_exec(STA_ZERO, 0x89, 0);
+        TEST_CHECK("sta", 4, cycles == 3 && mem_get(0x89) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0x95 works */
+        reg_set_acc(10);
+        reg_set_x(0x10);
+        cycles = op_exec(STA_ZEROX, 0x89, 0);
+        TEST_CHECK("sta", 5, cycles == 4 && mem_get(0x99) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0x81 works */
+        reg_set_acc(10);
+        mem_set(0x85, 0x32);
+        mem_set(0x86, 0x4);
+        reg_set_x(0x2);
+        cycles = op_exec(STA_INDX_INDR, 0x83, 0);
+        TEST_CHECK("sta", 6, cycles == 6 && mem_get(0x432) == 10);
+        cpu_reset(HARD_RESET);
+
+        /* 7. check if 0x91 works */
+        reg_set_acc(10);
+        mem_set(0x85, 0x30);
+        mem_set(0x86, 0x4);
+        reg_set_y(0x2);
+        cycles = op_exec(STA_INDR_INDY, 0x85, 0);
+        TEST_CHECK("sta", 7, cycles == 6 && mem_get(0x432) == 10);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_load(void)
 {
         test_lda();
         test_ldx();
         test_ldy();
+        test_sta();
 }

@@ -40,6 +40,14 @@ enum {
         LDY_ABSX = 0xBC,
         LDY_ZERO = 0xA4,
         LDY_ZEROX = 0xB4,
+
+        STA_ABS = 0x8D,
+        STA_ABSX = 0x9D,
+        STA_ABSY = 0x99,
+        STA_ZERO = 0x85,
+        STA_ZEROX = 0x95,
+        STA_INDX_INDR = 0x81,
+        STA_INDR_INDY = 0x91,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
