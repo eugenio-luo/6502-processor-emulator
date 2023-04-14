@@ -57,5 +57,12 @@ test_transfer(void)
         TEST_CHECK("txs", 1, cycles == 2 && reg_get_sp() == 10 &&
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
         cpu_reset(HARD_RESET);
+
+        /* 1. check if 0x98 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_y(10);
+        cycles = op_exec(TYA, 0, 0);
+        TEST_CHECK("tya", 1, cycles == 2 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
 }
 
