@@ -1,6 +1,4 @@
-#include "opcode/opcode.h"
 #include "opcode/opfunc.h"
-#include "opcode/optable.h"
 #include "opcode/addr_mode.h"
 #include "cpu/registers.h"
 
