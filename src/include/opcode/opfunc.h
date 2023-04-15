@@ -31,4 +31,6 @@ OP_FUNC_DECL(op_lsr);
 OP_FUNC_DECL(op_rol);
 OP_FUNC_DECL(op_ror);
 
+OP_FUNC_DECL(op_and);
+
 #endif

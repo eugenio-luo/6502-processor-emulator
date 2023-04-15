@@ -2,7 +2,7 @@ SRC_DIR := src
 TEST_DIR := test 
 INCLUDE_DIR := src/include
 TEST_INCLUDE_DIR := test/include
-LOG_DIR := logs/
+LOG_DIR := logs
 OUT_FILE := NES-emulator.out
 
 CFILES := $(shell find $(SRC_DIR) -type f -name "*.c")
@@ -14,7 +14,7 @@ W_FLAGS := -std=c99 -Wpedantic -pedantic-errors -Werror -Wall -Wextra \
 	   -Wnested-externs -Wpointer-arith -Wredundant-decls -Wsequence-point -Wshadow \
 	   -Wstrict-prototypes -Wswitch -Wundef -Wunreachable-code \
 	   -Wunused-but-set-parameter -Wwrite-strings
-CFLAGS := -I$(INCLUDE_DIR) $(W_FLAGS) -D_DEFAULT_SOURCE -DLOG_DIR_PATH='"$(LOG_DIR)"'
+CFLAGS := -I$(INCLUDE_DIR) $(W_FLAGS) -D_DEFAULT_SOURCE -DLOG_DIR_PATH='"$(LOG_DIR)/"'
 #SDL_FLAGS := -lSDL2 -lSDL2_ttf
 SDL_FLAGS := 
 TEST_CFLAGS := -DTEST -I$(TEST_INCLUDE_DIR) $(CFLAGS) 
@@ -24,7 +24,12 @@ TEST_CFLAGS := -DTEST -I$(TEST_INCLUDE_DIR) $(CFLAGS)
 all: compile
 
 clean:
+ifneq ("$(wildcard $(OUT_FILE))","")
 	@ rm $(OUT_FILE)
+endif
+ifneq ("$(wildcard $(LOG_DIR)/*)","")
+	@ rm -r $(LOG_DIR)/*
+endif
 
 compile:
 	@ gcc $(CFLAGS) $(CFILES) $(SDL_FLAGS) -o $(OUT_FILE)

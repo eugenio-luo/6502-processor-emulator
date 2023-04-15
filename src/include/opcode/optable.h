@@ -92,6 +92,15 @@ enum {
         ROR_ABSX = 0x7E,
         ROR_ZERO = 0x66,
         ROR_ZEROX = 0x76,
+
+        AND_IMM = 0x29,
+        AND_ABS = 0x2D,
+        AND_ABSX = 0x3D,
+        AND_ABSY = 0x39,
+        AND_ZERO = 0x25,
+        AND_ZEROX = 0x35,
+        AND_INDX_INDR = 0x21,
+        AND_INDR_INDY = 0x31,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

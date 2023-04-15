@@ -80,6 +80,15 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [ROR_ABSX] = OPCODE(op_ror, ABSX, 2, 7),
         [ROR_ZERO] = OPCODE(op_ror, ZERO, 1, 5),
         [ROR_ZEROX] = OPCODE(op_ror, ZEROX, 1, 6),
+
+        [AND_IMM] = OPCODE(op_and, IMM, 1, 2),
+        [AND_ABS] = OPCODE(op_and, ABS, 2, 4),
+        [AND_ABSX] = OPCODE(op_and, ABSX, 2, 4),
+        [AND_ABSY] = OPCODE(op_and, ABSY, 2, 4),
+        [AND_ZERO] = OPCODE(op_and, ZERO, 1, 3),
+        [AND_ZEROX] = OPCODE(op_and, ZEROX, 1, 4),
+        [AND_INDX_INDR] = OPCODE(op_and, INDX_INDR, 1, 6),
+        [AND_INDR_INDY] = OPCODE(op_and, INDR_INDY, 1, 5),
 };
 
 opcode_t *
