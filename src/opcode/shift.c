@@ -46,3 +46,18 @@ op_rol(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         op_set_addr_val(addr_mode, a, b, new_val);
         return 0;
 }
+
+int
+op_ror(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        uint8_t val = op_get_addr_val(addr_mode, a, b);
+        uint8_t new_val = (val >> 1) | (reg_is_flag_set(CARRY_FLAG) << 7);
+
+        set_affected_flags(new_val);
+        reg_clear_flags(CARRY_FLAG);
+        if (val & 0x1)
+                reg_set_flags(CARRY_FLAG);
+
+        op_set_addr_val(addr_mode, a, b, new_val);
+        return 0;
+}

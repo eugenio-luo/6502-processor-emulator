@@ -157,11 +157,9 @@ test_rol(void)
         reg_set_flags(CARRY_FLAG);
         reg_set_acc(0x40);
         cycles = op_exec(ROL_ACC, 0, 0);
-        #include <stdio.h>
         TEST_CHECK("rol", 4, cycles == 2 && reg_get_acc() == 0x81 &&
                    ( !reg_is_flag_set(ZERO_FLAG | CARRY_FLAG) ));
         cpu_reset(HARD_RESET);
-        
         
         /* 5. check if 0x2E works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
               shouldn't be set */
@@ -197,11 +195,76 @@ test_rol(void)
                    ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
         cpu_reset(HARD_RESET);
 }
+
+static void
+test_ror(void)
+{
+        int cycles;
+
+        /* 1. check if 0x6A works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
+              shouldn't be set */
+        reg_set_acc(8);
+        cycles = op_exec(ROR_ACC, 0, 0);
+        TEST_CHECK("ror", 1, cycles == 2 && reg_get_acc() == 4 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
         
+        /* 2. check if ZERO_FLAG and CARRY_FLAG get set with 0x1 as 
+              0x6A argument */
+        reg_set_acc(0x1);
+        cycles = op_exec(ROR_ACC, 0, 0);
+        TEST_CHECK("ror", 2, cycles == 2 && reg_get_acc() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG | CARRY_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if carry bit get shifted in and NEG_FLAG get set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(0x10);
+        cycles = op_exec(ROR_ACC, 0, 0);
+        TEST_CHECK("ror", 3, cycles == 2 && reg_get_acc() == 0x88 &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+        
+        /* 4. check if 0x2E works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
+              shouldn't be set */
+        mem_set(0x432, 8);
+        cycles = op_exec(ROR_ABS, 0x32, 0x4);
+        TEST_CHECK("ror", 4, cycles == 6 && mem_get(0x432) == 4 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
+        
+        /* 5. check if 0x3E works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
+              shouldn't be set */
+        mem_set(0x432, 8);
+        reg_set_x(0x10);
+        cycles = op_exec(ROR_ABSX, 0x22, 0x4);
+        TEST_CHECK("ror", 5, cycles == 7 && mem_get(0x432) == 4 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0x26 works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
+              shouldn't be set */
+        mem_set(0x32, 8);
+        cycles = op_exec(ROR_ZERO, 0x32, 0);
+        TEST_CHECK("ror", 6, cycles == 5 && mem_get(0x32) == 4 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
+        
+        /* 7. check if 0x36 works, NEG_FLAG, ZERO_FLAG and CARRY FLAG 
+              shouldn't be set */
+        mem_set(0x32, 8);
+        reg_set_x(0x10);
+        cycles = op_exec(ROR_ZEROX, 0x22, 0);
+        TEST_CHECK("ror", 7, cycles == 6 && mem_get(0x32) == 4 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_shift(void)
 {
         test_asl();
         test_lsr();
         test_rol();
+        test_ror();
 }
