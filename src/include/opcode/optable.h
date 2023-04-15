@@ -67,6 +67,7 @@ enum {
         PHA = 0x48,
         PHP = 0x08,
         PLA = 0x68,
+        PLP = 0x28,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

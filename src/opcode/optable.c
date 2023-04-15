@@ -55,6 +55,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [PHA] = OPCODE(op_pha, IMPL, 0, 3),
         [PHP] = OPCODE(op_php, IMPL, 0, 3),
         [PLA] = OPCODE(op_pla, IMPL, 0, 4),
+        [PLP] = OPCODE(op_plp, IMPL, 0, 4),
 };
 
 opcode_t *

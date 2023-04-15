@@ -24,5 +24,6 @@ OP_FUNC_DECL(op_tya);
 OP_FUNC_DECL(op_pha);
 OP_FUNC_DECL(op_php);
 OP_FUNC_DECL(op_pla);
+OP_FUNC_DECL(op_plp);
 
 #endif

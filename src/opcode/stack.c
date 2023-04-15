@@ -32,5 +32,20 @@ op_pla(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         stack_pop();
         reg_set_acc(val);
 
+        set_affected_flags(val);
+        
+        return 0;
+}
+
+int
+op_plp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+
+        /* TODO: should BREAK flag be changed? */
+        uint8_t val = stack_top();
+        stack_pop();
+        reg_force_flags(val);
+
         return 0;
 }

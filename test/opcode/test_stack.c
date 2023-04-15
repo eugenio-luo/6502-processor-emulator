@@ -28,5 +28,11 @@ test_op_stack(void)
         cycles = op_exec(PLA, 0, 0);
         TEST_CHECK("pla", 1, cycles == 4 && reg_get_acc() == 10);
         cpu_reset(HARD_RESET);
+
+        /* 4. check if 0x28 works */
+        stack_push(10);
+        cycles = op_exec(PLP, 0, 0);
+        TEST_CHECK("plp", 1, cycles == 4 && reg_get_flags() == 10);
+        cpu_reset(HARD_RESET);
 }
 
