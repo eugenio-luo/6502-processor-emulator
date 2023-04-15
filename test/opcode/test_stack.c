@@ -21,7 +21,13 @@ test_op_stack(void)
         reg_clear_flags(0xFF);
         reg_set_flags(10);
         cycles = op_exec(PHP, 0, 0);
-        printf("%x\n", stack_top());
         TEST_CHECK("php", 1, cycles == 3 && stack_top() == 10);
         cpu_reset(HARD_RESET);
+
+        /* 3. check if 0x68 works */
+        stack_push(10);
+        cycles = op_exec(PLA, 0, 0);
+        TEST_CHECK("pla", 1, cycles == 4 && reg_get_acc() == 10);
+        cpu_reset(HARD_RESET);
 }
+

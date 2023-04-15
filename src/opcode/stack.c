@@ -22,3 +22,15 @@ op_php(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_pla(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+
+        uint8_t val = stack_top();
+        stack_pop();
+        reg_set_acc(val);
+
+        return 0;
+}
