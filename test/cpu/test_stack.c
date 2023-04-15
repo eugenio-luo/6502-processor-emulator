@@ -5,8 +5,6 @@
 #include "cpu/cpu.h"
 #include "cpu/memory.h"
 
-#include <stdio.h>
-
 void
 test_cpu_stack(void)
 {

@@ -174,5 +174,10 @@ op_set_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b, uint8_t val)
 {
         is_page_crossed = 0;
 
+        if (addr_mode == ACC) {
+                reg_set_acc(val);
+                return;
+        }
+        
         mem_set(op_get_addr(addr_mode, a, b), val);
 }

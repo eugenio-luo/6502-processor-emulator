@@ -2,7 +2,6 @@
 #define NES_TEST_CHECK_H
 
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "log.h"
 #include "test.h"
