@@ -370,7 +370,7 @@ test_sty(void)
 }
 
 void
-test_load(void)
+test_op_load(void)
 {
         test_lda();
         test_ldx();

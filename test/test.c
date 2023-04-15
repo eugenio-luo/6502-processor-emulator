@@ -18,16 +18,16 @@ test_sys(void)
 static void
 test_cpu(void)
 {
-        test_regs();
-        test_mem();
-        test_stack();
+        test_cpu_regs();
+        test_cpu_mem();
+        test_cpu_stack();
 }
 
 static void
 test_op(void)
 {
-        test_load();
-        test_transfer();
+        test_op_load();
+        test_op_transfer();
 }         
 
 void

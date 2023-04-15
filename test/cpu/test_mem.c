@@ -3,7 +3,7 @@
 #include "cpu/memory.h"
 
 void
-test_mem(void)
+test_cpu_mem(void)
 {
         /* 1. check if initial state is correct and if mem_get works */
         int empty = 1;
@@ -27,4 +27,3 @@ test_mem(void)
 
         cpu_reset(HARD_RESET);
 }
-

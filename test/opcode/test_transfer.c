@@ -6,7 +6,7 @@
 #include "opcode/optable.h"
 
 void
-test_transfer(void)
+test_op_transfer(void)
 {
         int cycles;
         

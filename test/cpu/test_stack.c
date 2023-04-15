@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 void
-test_stack(void)
+test_cpu_stack(void)
 {
         /* initial state is already checked by test_regs and test_mem */
 
@@ -41,3 +41,4 @@ test_stack(void)
         
         cpu_reset(HARD_RESET);
 }
+

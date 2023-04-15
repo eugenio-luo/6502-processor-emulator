@@ -4,7 +4,7 @@
 #include "cpu/cpu.h"
 
 void
-test_regs(void)
+test_cpu_regs(void)
 {
         /* 1-3. check if initial state is correct and if reg_get works */
         TEST_CHECK("regs", 1, reg_get_flags() == (INT_DISABLE | BREAK_COM0 | BREAK_COM1));
