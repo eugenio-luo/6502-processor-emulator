@@ -113,6 +113,15 @@ enum {
         EOR_ZEROX = 0x55,
         EOR_INDX_INDR = 0x41,
         EOR_INDR_INDY = 0x51,
+
+        ORA_IMM = 0x09,
+        ORA_ABS = 0x0D,
+        ORA_ABSX = 0x1D,
+        ORA_ABSY = 0x19,
+        ORA_ZERO = 0x05,
+        ORA_ZEROX = 0x15,
+        ORA_INDX_INDR = 0x01,
+        ORA_INDR_INDY = 0x11,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

@@ -286,10 +286,132 @@ test_eor(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_ora(void)
+{
+        int cycles;
+
+        /* 1. check if 0x09 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        cycles = op_exec(ORA_IMM, 2, 0);
+        TEST_CHECK("ora", 1, cycles == 2 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+  
+        /* 2. check if ZERO_FLAG get set with zero as 0x09 argument */
+        reg_set_acc(0);
+        cycles = op_exec(ORA_IMM, 0, 0);
+        TEST_CHECK("ora", 2, cycles == 2 && reg_get_acc() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+        
+        /* 3. check if NEG_FLAG get set with negative number as 0x09 argument */
+        reg_set_acc(0x81);
+        cycles = op_exec(ORA_IMM, 0x04, 0);
+        TEST_CHECK("ora", 3, cycles == 2 && reg_get_acc() == 0x85 &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0x0D works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x6FF, 2);
+        cycles = op_exec(ORA_ABS, 0xFF, 0x6);
+        TEST_CHECK("ora", 4, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0x1D works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x6FF, 2);
+        reg_set_x(0x1F);
+        cycles = op_exec(ORA_ABSX, 0xE0, 0x6);
+        TEST_CHECK("ora", 5, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0x1D cycles increases if page boundary is crossed */
+        reg_set_acc(8);
+        mem_set(0x70F, 2);
+        reg_set_x(0x1F);
+        cycles = op_exec(ORA_ABSX, 0xF0, 0x6);
+        TEST_CHECK("ora", 6, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 7. check if 0x19 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x6FF, 2);
+        reg_set_y(0x1F);
+        cycles = op_exec(ORA_ABSY, 0xE0, 0x6);
+        TEST_CHECK("ora", 7, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 8. check if 0x19 cycles increases if page boundary is crossed */
+        reg_set_acc(8);
+        mem_set(0x70F, 2);
+        reg_set_y(0x1F);
+        cycles = op_exec(ORA_ABSY, 0xF0, 0x6);
+        TEST_CHECK("ora", 8, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 9. check if 0x05 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x85, 2);
+        cycles = op_exec(ORA_ZERO, 0x85, 0);
+        TEST_CHECK("ora", 9, cycles == 3 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 10. check if 0x15 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x85, 2);
+        reg_set_x(0x10);
+        cycles = op_exec(ORA_ZEROX, 0x75, 0);
+        TEST_CHECK("ora", 10, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 11. check if 0x01 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(10);
+        mem_set(0x85, 0x32);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 2);
+        reg_set_x(0x2);
+        cycles = op_exec(ORA_INDX_INDR, 0x83, 0);
+        TEST_CHECK("ora", 11, cycles == 6 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 12. check if 0x11 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(8);
+        mem_set(0x85, 0x30);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 2);
+        reg_set_y(0x2);
+        cycles = op_exec(ORA_INDR_INDY, 0x85, 0);
+        TEST_CHECK("ora", 12, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 13. check if 0x31 cycles increases if page boundary is crossed */
+        reg_set_acc(8);
+        mem_set(0x85, 0xFF);
+        mem_set(0x86, 0x4);
+        mem_set(0x501, 2);
+        reg_set_y(0x2);
+        cycles = op_exec(ORA_INDR_INDY, 0x85, 0);
+        TEST_CHECK("ora", 13, cycles == 6 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_logic(void)
 {
         test_and();
         test_bit();
         test_eor();
+        test_ora();
 }
