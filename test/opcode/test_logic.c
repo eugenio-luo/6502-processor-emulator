@@ -165,9 +165,131 @@ test_bit(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_eor(void)
+{
+        int cycles;
+
+        /* 1. check if 0x49 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        cycles = op_exec(EOR_IMM, 18, 0);
+        TEST_CHECK("eor", 1, cycles == 2 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+  
+        /* 2. check if ZERO_FLAG get set with zero as 0x49 argument */
+        reg_set_acc(24);
+        cycles = op_exec(EOR_IMM, 24, 0);
+        TEST_CHECK("eor", 2, cycles == 2 && reg_get_acc() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+        
+        /* 3. check if NEG_FLAG get set with negative number as 0x49 argument */
+        reg_set_acc(0x83);
+        cycles = op_exec(EOR_IMM, 0x58, 0);
+        TEST_CHECK("eor", 3, cycles == 2 && reg_get_acc() == 0xDB &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0x4D works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x6FF, 18);
+        cycles = op_exec(EOR_ABS, 0xFF, 0x6);
+        TEST_CHECK("eor", 4, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0x5D works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x6FF, 18);
+        reg_set_x(0x1F);
+        cycles = op_exec(EOR_ABSX, 0xE0, 0x6);
+        TEST_CHECK("eor", 5, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0x5D cycles increases if page boundary is crossed */
+        reg_set_acc(24);
+        mem_set(0x70F, 18);
+        reg_set_x(0x1F);
+        cycles = op_exec(EOR_ABSX, 0xF0, 0x6);
+        TEST_CHECK("eor", 6, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 7. check if 0x59 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x6FF, 18);
+        reg_set_y(0x1F);
+        cycles = op_exec(EOR_ABSY, 0xE0, 0x6);
+        TEST_CHECK("eor", 7, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 8. check if 0x59 cycles increases if page boundary is crossed */
+        reg_set_acc(24);
+        mem_set(0x70F, 18);
+        reg_set_y(0x1F);
+        cycles = op_exec(EOR_ABSY, 0xF0, 0x6);
+        TEST_CHECK("eor", 8, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 9. check if 0x45 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x85, 18);
+        cycles = op_exec(EOR_ZERO, 0x85, 0);
+        TEST_CHECK("eor", 9, cycles == 3 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 10. check if 0x55 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x85, 18);
+        reg_set_x(0x10);
+        cycles = op_exec(EOR_ZEROX, 0x75, 0);
+        TEST_CHECK("eor", 10, cycles == 4 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 11. check if 0x41 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x85, 0x32);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 18);
+        reg_set_x(0x2);
+        cycles = op_exec(EOR_INDX_INDR, 0x83, 0);
+        TEST_CHECK("eor", 11, cycles == 6 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 12. check if 0x51 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(24);
+        mem_set(0x85, 0x30);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 18);
+        reg_set_y(0x2);
+        cycles = op_exec(EOR_INDR_INDY, 0x85, 0);
+        TEST_CHECK("eor", 12, cycles == 5 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 13. check if 0x31 cycles increases if page boundary is crossed */
+        reg_set_acc(24);
+        mem_set(0x85, 0xFF);
+        mem_set(0x86, 0x4);
+        mem_set(0x501, 18);
+        reg_set_y(0x2);
+        cycles = op_exec(EOR_INDR_INDY, 0x85, 0);
+        TEST_CHECK("eor", 13, cycles == 6 && reg_get_acc() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_logic(void)
 {
         test_and();
         test_bit();
+        test_eor();
 }

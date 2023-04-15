@@ -104,6 +104,15 @@ enum {
 
         BIT_ABS = 0x2C,
         BIT_ZERO = 0x24,
+
+        EOR_IMM = 0x49,
+        EOR_ABS = 0x4D,
+        EOR_ABSX = 0x5D,
+        EOR_ABSY = 0x59,
+        EOR_ZERO = 0x45,
+        EOR_ZEROX = 0x55,
+        EOR_INDX_INDR = 0x41,
+        EOR_INDR_INDY = 0x51,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

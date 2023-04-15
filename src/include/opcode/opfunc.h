@@ -33,5 +33,6 @@ OP_FUNC_DECL(op_ror);
 
 OP_FUNC_DECL(op_and);
 OP_FUNC_DECL(op_bit);
+OP_FUNC_DECL(op_eor);
 
 #endif

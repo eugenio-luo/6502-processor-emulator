@@ -92,6 +92,15 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
 
         [BIT_ABS] = OPCODE(op_bit, ABS, 2, 4),
         [BIT_ZERO] = OPCODE(op_bit, ZERO, 1, 3),
+
+        [EOR_IMM] = OPCODE(op_eor, IMM, 1, 2),
+        [EOR_ABS] = OPCODE(op_eor, ABS, 2, 4),
+        [EOR_ABSX] = OPCODE(op_eor, ABSX, 2, 4),
+        [EOR_ABSY] = OPCODE(op_eor, ABSY, 2, 4),
+        [EOR_ZERO] = OPCODE(op_eor, ZERO, 1, 3),
+        [EOR_ZEROX] = OPCODE(op_eor, ZEROX, 1, 4),
+        [EOR_INDX_INDR] = OPCODE(op_eor, INDX_INDR, 1, 6),
+        [EOR_INDR_INDY] = OPCODE(op_eor, INDR_INDY, 1, 5),
 };
 
 opcode_t *
