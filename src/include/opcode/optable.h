@@ -68,6 +68,12 @@ enum {
         PHP = 0x08,
         PLA = 0x68,
         PLP = 0x28,
+
+        ASL_ACC = 0x0A,
+        ASL_ABS = 0x0E,
+        ASL_ABSX = 0x1E,
+        ASL_ZERO = 0x06,
+        ASL_ZEROX = 0x16,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

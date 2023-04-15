@@ -56,6 +56,12 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [PHP] = OPCODE(op_php, IMPL, 0, 3),
         [PLA] = OPCODE(op_pla, IMPL, 0, 4),
         [PLP] = OPCODE(op_plp, IMPL, 0, 4),
+
+        [ASL_ACC] = OPCODE(op_asl, ACC, 0, 2),
+        [ASL_ABS] = OPCODE(op_asl, ABS, 2, 6),
+        [ASL_ABSX] = OPCODE(op_asl, ABSX, 2, 7),
+        [ASL_ZERO] = OPCODE(op_asl, ZERO, 1, 5),
+        [ASL_ZEROX] = OPCODE(op_asl, ZEROX, 1, 6),
 };
 
 opcode_t *

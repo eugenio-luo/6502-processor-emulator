@@ -29,6 +29,7 @@ test_op(void)
         test_op_load();
         test_op_transfer();
         test_op_stack();
+        test_op_shift();
 }         
 
 void
