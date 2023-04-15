@@ -127,8 +127,47 @@ test_and(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_bit(void)
+{
+        int cycles;
+
+        /* 1. check if 0x2C works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(0x65);
+        mem_set(0x432, 0x63);
+        cycles = op_exec(BIT_ABS, 0x32, 4);
+        TEST_CHECK("bit", 1, cycles == 4 && reg_is_flag_set(OVER_FLAG) &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+        
+        /* 2. check if ZERO_FLAG get set with zero as 0x2C argument */
+        reg_set_acc(0x0);
+        mem_set(0x432, 0x63);
+        cycles = op_exec(BIT_ABS, 0x32, 4);
+        TEST_CHECK("bit", 2, cycles == 4 && reg_is_flag_set(ZERO_FLAG) &&
+                   ( !reg_is_flag_set(NEG_FLAG | OVER_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG get set with negative number as 0x2C argument */
+        reg_set_acc(0x83);
+        mem_set(0x432, 0x80);
+        cycles = op_exec(BIT_ABS, 0x32, 4);
+        TEST_CHECK("bit", 3, cycles == 4 && reg_is_flag_set(NEG_FLAG) &&
+                   ( !reg_is_flag_set(ZERO_FLAG | OVER_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0x2C works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_acc(0x65);
+        mem_set(0x32, 0x63);
+        cycles = op_exec(BIT_ZERO, 0x32, 0);
+        TEST_CHECK("bit", 4, cycles == 3 && reg_is_flag_set(OVER_FLAG) &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_logic(void)
 {
         test_and();
+        test_bit();
 }

@@ -13,3 +13,17 @@ op_and(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return op_get_page_cross();
 }
+
+int
+op_bit(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        uint8_t val = op_get_addr_val(addr_mode, a, b);
+        uint8_t new_val = val & reg_get_acc();
+
+        set_affected_flags(new_val);
+        reg_clear_flags(OVER_FLAG);
+        if (new_val & 0x40)
+                reg_set_flags(OVER_FLAG);
+
+        return 0;
+}

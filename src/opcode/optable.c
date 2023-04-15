@@ -89,6 +89,9 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [AND_ZEROX] = OPCODE(op_and, ZEROX, 1, 4),
         [AND_INDX_INDR] = OPCODE(op_and, INDX_INDR, 1, 6),
         [AND_INDR_INDY] = OPCODE(op_and, INDR_INDY, 1, 5),
+
+        [BIT_ABS] = OPCODE(op_bit, ABS, 2, 4),
+        [BIT_ZERO] = OPCODE(op_bit, ZERO, 1, 3),
 };
 
 opcode_t *
