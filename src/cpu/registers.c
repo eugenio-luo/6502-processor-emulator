@@ -36,8 +36,7 @@ regs_reset(int hard)
                 
                 log_write("[registers.c: regs_reset] registers hard reset");
                 
-                reg_clear_flags(ALL_FLAG);
-                reg_set_flags(INT_DISABLE | BREAK_COM0 | BREAK_COM1);
+                reg_force_flags(INT_DISABLE | BREAK_COM0 | BREAK_COM1);
 
                 reg_set_acc(0);
                 reg_set_x(0);
@@ -88,6 +87,12 @@ void
 reg_set_flags(reg_flag_t val)
 {
         regs.flags |= val;
+}
+
+void
+reg_force_flags(reg_flag_t val)
+{
+        regs.flags = val;
 }
 
 void

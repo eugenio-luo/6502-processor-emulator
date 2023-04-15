@@ -26,6 +26,7 @@ void reg_set_acc(uint8_t val);
 void reg_set_x(uint8_t val);
 void reg_set_y(uint8_t val);
 void reg_set_flags(reg_flag_t val);
+void reg_force_flags(reg_flag_t val);
 void reg_clear_flags(reg_flag_t val);
 
 uint16_t reg_get_pc(void);

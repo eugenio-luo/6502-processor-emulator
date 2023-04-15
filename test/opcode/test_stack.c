@@ -18,8 +18,7 @@ test_op_stack(void)
         cpu_reset(HARD_RESET);
 
         /* 2. check if 0x08 works */
-        reg_clear_flags(0xFF);
-        reg_set_flags(10);
+        reg_force_flags(10);
         cycles = op_exec(PHP, 0, 0);
         TEST_CHECK("php", 1, cycles == 3 && stack_top() == 10);
         cpu_reset(HARD_RESET);
