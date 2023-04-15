@@ -140,7 +140,7 @@ reg_get_flags(void)
 int
 reg_is_flag_set(reg_flag_t val)
 {
-        return regs.flags & val;
+        return (regs.flags & val) ? 1 : 0;
 }
 
 void
