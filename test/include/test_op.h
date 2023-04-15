@@ -3,5 +3,6 @@
 
 void test_op_load(void);
 void test_op_transfer(void);
+void test_op_stack(void);
 
 #endif

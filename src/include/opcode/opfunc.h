@@ -21,4 +21,6 @@ OP_FUNC_DECL(op_txa);
 OP_FUNC_DECL(op_txs);
 OP_FUNC_DECL(op_tya);
 
+OP_FUNC_DECL(op_pha);
+
 #endif
