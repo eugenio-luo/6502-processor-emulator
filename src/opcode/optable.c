@@ -62,6 +62,12 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [ASL_ABSX] = OPCODE(op_asl, ABSX, 2, 7),
         [ASL_ZERO] = OPCODE(op_asl, ZERO, 1, 5),
         [ASL_ZEROX] = OPCODE(op_asl, ZEROX, 1, 6),
+
+        [LSR_ACC] = OPCODE(op_lsr, ACC, 0, 2),
+        [LSR_ABS] = OPCODE(op_lsr, ABS, 2, 6),
+        [LSR_ABSX] = OPCODE(op_lsr, ABSX, 2, 7),
+        [LSR_ZERO] = OPCODE(op_lsr, ZERO, 1, 5),
+        [LSR_ZEROX] = OPCODE(op_lsr, ZEROX, 1, 6),
 };
 
 opcode_t *

@@ -74,6 +74,12 @@ enum {
         ASL_ABSX = 0x1E,
         ASL_ZERO = 0x06,
         ASL_ZEROX = 0x16,
+
+        LSR_ACC = 0x4A,
+        LSR_ABS = 0x4E,
+        LSR_ABSX = 0x5E,
+        LSR_ZERO = 0x46,
+        LSR_ZEROX = 0x56,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
