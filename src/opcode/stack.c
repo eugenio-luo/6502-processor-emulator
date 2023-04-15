@@ -12,3 +12,13 @@ op_pha(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_php(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+
+        stack_push(reg_get_flags());
+
+        return 0;
+}
