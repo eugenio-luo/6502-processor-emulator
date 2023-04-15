@@ -80,6 +80,12 @@ enum {
         LSR_ABSX = 0x5E,
         LSR_ZERO = 0x46,
         LSR_ZEROX = 0x56,
+
+        ROL_ACC = 0x2A,
+        ROL_ABS = 0x2E,
+        ROL_ABSX = 0x3E,
+        ROL_ZERO = 0x26,
+        ROL_ZEROX = 0x36,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

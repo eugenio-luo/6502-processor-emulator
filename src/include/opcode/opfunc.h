@@ -28,5 +28,6 @@ OP_FUNC_DECL(op_plp);
 
 OP_FUNC_DECL(op_asl);
 OP_FUNC_DECL(op_lsr);
+OP_FUNC_DECL(op_rol);
 
 #endif

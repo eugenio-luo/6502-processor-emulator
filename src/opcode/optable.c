@@ -68,6 +68,12 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [LSR_ABSX] = OPCODE(op_lsr, ABSX, 2, 7),
         [LSR_ZERO] = OPCODE(op_lsr, ZERO, 1, 5),
         [LSR_ZEROX] = OPCODE(op_lsr, ZEROX, 1, 6),
+
+        [ROL_ACC] = OPCODE(op_rol, ACC, 0, 2),
+        [ROL_ABS] = OPCODE(op_rol, ABS, 2, 6),
+        [ROL_ABSX] = OPCODE(op_rol, ABSX, 2, 7),
+        [ROL_ZERO] = OPCODE(op_rol, ZERO, 1, 5),
+        [ROL_ZEROX] = OPCODE(op_rol, ZEROX, 1, 6),
 };
 
 opcode_t *
