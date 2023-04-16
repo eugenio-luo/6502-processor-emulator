@@ -132,6 +132,10 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [CPX_IMM] = OPCODE(op_cpx, IMM, 1, 2),
         [CPX_ABS] = OPCODE(op_cpx, ABS, 2, 4),
         [CPX_ZERO] = OPCODE(op_cpx, ZERO, 1, 3),
+
+        [CPY_IMM] = OPCODE(op_cpy, IMM, 1, 2),
+        [CPY_ABS] = OPCODE(op_cpy, ABS, 2, 4),
+        [CPY_ZERO] = OPCODE(op_cpy, ZERO, 1, 3),
 };
 
 opcode_t *
