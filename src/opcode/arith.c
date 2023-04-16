@@ -19,3 +19,17 @@ op_adc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return op_get_page_cross();
 }
+
+int
+op_cmp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        uint8_t val = op_get_addr_val(addr_mode, a, b);
+        uint8_t new_val = reg_get_acc() - val;
+
+        set_affected_flags(new_val);
+        reg_clear_flags(CARRY_FLAG);
+        if (reg_get_acc() >= val)
+                reg_set_flags(CARRY_FLAG);
+
+        return op_get_page_cross();
+}

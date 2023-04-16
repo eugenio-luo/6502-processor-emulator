@@ -119,6 +119,15 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [ADC_ZEROX] = OPCODE(op_adc, ZEROX, 1, 4),
         [ADC_INDX_INDR] = OPCODE(op_adc, INDX_INDR, 1, 6),
         [ADC_INDR_INDY] = OPCODE(op_adc, INDR_INDY, 1, 5),
+
+        [CMP_IMM] = OPCODE(op_cmp, IMM, 1, 2),
+        [CMP_ABS] = OPCODE(op_cmp, ABS, 2, 4),
+        [CMP_ABSX] = OPCODE(op_cmp, ABSX, 2, 4),
+        [CMP_ABSY] = OPCODE(op_cmp, ABSY, 2, 4),
+        [CMP_ZERO] = OPCODE(op_cmp, ZERO, 1, 3),
+        [CMP_ZEROX] = OPCODE(op_cmp, ZEROX, 1, 4),
+        [CMP_INDX_INDR] = OPCODE(op_cmp, INDX_INDR, 1, 6),
+        [CMP_INDR_INDY] = OPCODE(op_cmp, INDR_INDY, 1, 5),
 };
 
 opcode_t *

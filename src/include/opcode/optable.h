@@ -131,6 +131,15 @@ enum {
         ADC_ZEROX = 0x75,
         ADC_INDX_INDR = 0x61,
         ADC_INDR_INDY = 0x71,
+
+        CMP_IMM = 0xC9,
+        CMP_ABS = 0xCD,
+        CMP_ABSX = 0xDD,
+        CMP_ABSY = 0xD9,
+        CMP_ZERO = 0xC5,
+        CMP_ZEROX = 0xD5,
+        CMP_INDX_INDR = 0xC1,
+        CMP_INDR_INDY = 0xD1, 
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

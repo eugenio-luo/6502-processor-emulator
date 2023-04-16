@@ -37,5 +37,6 @@ OP_FUNC_DECL(op_eor);
 OP_FUNC_DECL(op_ora);
 
 OP_FUNC_DECL(op_adc);
+OP_FUNC_DECL(op_cmp);
 
 #endif
