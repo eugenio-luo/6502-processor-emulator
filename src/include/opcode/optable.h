@@ -140,6 +140,10 @@ enum {
         CMP_ZEROX = 0xD5,
         CMP_INDX_INDR = 0xC1,
         CMP_INDR_INDY = 0xD1, 
+
+        CPX_IMM = 0xE0,
+        CPX_ABS = 0xEC,
+        CPX_ZERO = 0xE4,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

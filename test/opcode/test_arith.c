@@ -250,9 +250,53 @@ test_cmp(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_cpx(void)
+{
+        int cycles;
+
+        /* 1. check if 0xE0 works, NEG_FLAG, ZERO_FLAG, CARRY_FLAG 
+              shouldn't be set */
+        reg_set_x(0x3);
+        cycles = op_exec(CPX_IMM, 0xF5, 0);
+        TEST_CHECK("cpx", 1, cycles == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | CARRY_FLAG) ));
+        cpu_reset(HARD_RESET);
+  
+        /* 2. check if ZERO_FLAG get set */
+        reg_set_x(0x4);
+        cycles = op_exec(CPX_IMM, 4, 0);
+        TEST_CHECK("cpx", 2, cycles == 2 && reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+        
+        /* 3. check if NEG_FLAG and CARRY FLAG get set */
+        reg_set_x(0xF3);
+        cycles = op_exec(CPX_IMM, 0x5, 0);
+        TEST_CHECK("cpx", 3, cycles == 2 &&
+                   reg_is_flag_set(NEG_FLAG | CARRY_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 4. check if 0xEC works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_x(5);
+        mem_set(0x6FF, 3);
+        cycles = op_exec(CPX_ABS, 0xFF, 0x6);
+        TEST_CHECK("cpx", 4, cycles == 4 && reg_is_flag_set(CARRY_FLAG) &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0xC5 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_x(5);
+        mem_set(0x85, 3);
+        cycles = op_exec(CPX_ZERO, 0x85, 0);
+        TEST_CHECK("cpx", 5, cycles == 3 && reg_is_flag_set(CARRY_FLAG) &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_arith(void)
 {
         test_adc();
         test_cmp();
+        test_cpx();
 }
