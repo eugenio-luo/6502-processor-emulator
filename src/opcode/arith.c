@@ -2,15 +2,12 @@
 #include "opcode/addr_mode.h"
 #include "cpu/registers.h"
 
-#include "log.h"
-
 static int
 op_addition_instr(uint8_t val)
 {
         uint8_t acc = reg_get_acc();
         int new_val = val + acc + reg_is_flag_set(CARRY_FLAG);
         uint8_t new_byte = new_val & 0xFF;
-        log_write("second operand: %x, %x, %x, %x", val, acc, new_val, new_byte);
         reg_set_acc(new_byte);
         
         set_affected_flags(new_byte);

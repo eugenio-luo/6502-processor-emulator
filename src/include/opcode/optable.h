@@ -157,6 +157,11 @@ enum {
         SBC_ZEROX = 0xF5,
         SBC_INDX_INDR = 0xE1,
         SBC_INDR_INDY = 0xF1, 
+
+        DEC_ABS = 0xCE,
+        DEC_ABSX = 0xDE,
+        DEC_ZERO = 0xC6,
+        DEC_ZEROX = 0xD6,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

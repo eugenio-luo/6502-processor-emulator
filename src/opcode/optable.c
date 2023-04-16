@@ -145,6 +145,12 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [SBC_ZEROX] = OPCODE(op_sbc, ZEROX, 1, 4),
         [SBC_INDX_INDR] = OPCODE(op_sbc, INDX_INDR, 1, 6),
         [SBC_INDR_INDY] = OPCODE(op_sbc, INDR_INDY, 1, 5),
+
+        [DEC_ABS] = OPCODE(op_dec, ABS, 2, 6),
+        [DEC_ABSX] = OPCODE(op_dec, ABSX, 2, 7),
+        [DEC_ZERO] = OPCODE(op_dec, ZERO, 1, 5),
+        [DEC_ZEROX] = OPCODE(op_dec, ZEROX, 1, 6),
+        
 };
 
 opcode_t *

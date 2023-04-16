@@ -7,5 +7,6 @@ void test_op_stack(void);
 void test_op_shift(void);
 void test_op_logic(void);
 void test_op_arith(void);
+void test_op_incdec(void);
 
 #endif
