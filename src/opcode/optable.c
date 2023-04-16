@@ -158,6 +158,9 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [INC_ABSX] = OPCODE(op_inc, ABSX, 2, 7),
         [INC_ZERO] = OPCODE(op_inc, ZERO, 1, 5),
         [INC_ZEROX] = OPCODE(op_inc, ZEROX, 1, 6),
+
+        [INX] = OPCODE(op_inx, IMPL, 0, 2),
+        [INY] = OPCODE(op_iny, IMPL, 0, 2),
 };
 
 opcode_t *

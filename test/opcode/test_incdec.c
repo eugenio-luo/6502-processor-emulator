@@ -160,6 +160,60 @@ test_inc(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_inx(void)
+{
+        int cycles;
+
+        /* 1. check if 0xE8 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_x(9);
+        cycles = op_exec(INX, 0, 0);
+        TEST_CHECK("inx", 1, cycles == 2 && reg_get_x() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG */
+        reg_set_x(0xFF);
+        cycles = op_exec(INX, 0, 0);
+        TEST_CHECK("inx", 2, cycles == 2 && reg_get_x() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG */
+        reg_set_x(0xFE);
+        cycles = op_exec(INX, 0, 0);
+        TEST_CHECK("inx", 3, cycles == 2 && reg_get_x() == 0xFF &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+}
+
+static void
+test_iny(void)
+{
+        int cycles;
+
+        /* 1. check if 0xC8 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_y(9);
+        cycles = op_exec(INY, 0, 0);
+        TEST_CHECK("iny", 1, cycles == 2 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG */
+        reg_set_y(0xFF);
+        cycles = op_exec(INY, 0, 0);
+        TEST_CHECK("iny", 2, cycles == 2 && reg_get_y() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG */
+        reg_set_y(0xFE);
+        cycles = op_exec(INY, 0, 0);
+        TEST_CHECK("iny", 3, cycles == 2 && reg_get_y() == 0xFF &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_incdec(void)
 {
@@ -167,4 +221,6 @@ test_op_incdec(void)
         test_dex();
         test_dey();
         test_inc();
+        test_inx();
+        test_iny();
 }

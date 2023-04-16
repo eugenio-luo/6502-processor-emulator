@@ -170,6 +170,9 @@ enum {
         INC_ABSX = 0xFE,
         INC_ZERO = 0xE6,
         INC_ZEROX = 0xF6,
+
+        INX = 0xE8,
+        INY = 0xC8,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

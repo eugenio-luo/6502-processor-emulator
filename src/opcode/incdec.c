@@ -45,3 +45,25 @@ op_inc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_inx(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+        
+        reg_inc_x();
+        set_affected_flags(reg_get_x());
+        
+        return 0;
+}
+
+int
+op_iny(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+        
+        reg_inc_y();
+        set_affected_flags(reg_get_y());
+        
+        return 0;
+}
