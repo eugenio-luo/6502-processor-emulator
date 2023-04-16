@@ -45,5 +45,6 @@ OP_FUNC_DECL(op_sbc);
 OP_FUNC_DECL(op_dec);
 OP_FUNC_DECL(op_dex);
 OP_FUNC_DECL(op_dey);
+OP_FUNC_DECL(op_inc);
 
 #endif

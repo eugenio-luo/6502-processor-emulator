@@ -165,6 +165,11 @@ enum {
 
         DEX = 0xCA,
         DEY = 0x88,
+
+        INC_ABS = 0xEE,
+        INC_ABSX = 0xFE,
+        INC_ZERO = 0xE6,
+        INC_ZEROX = 0xF6,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

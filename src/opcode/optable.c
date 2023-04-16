@@ -153,6 +153,11 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
 
         [DEX] = OPCODE(op_dex, IMPL, 0, 2),
         [DEY] = OPCODE(op_dey, IMPL, 0, 2),
+
+        [INC_ABS] = OPCODE(op_inc, ABS, 2, 6),
+        [INC_ABSX] = OPCODE(op_inc, ABSX, 2, 7),
+        [INC_ZERO] = OPCODE(op_inc, ZERO, 1, 5),
+        [INC_ZEROX] = OPCODE(op_inc, ZEROX, 1, 6),
 };
 
 opcode_t *
