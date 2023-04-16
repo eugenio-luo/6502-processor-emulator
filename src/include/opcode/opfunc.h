@@ -36,4 +36,6 @@ OP_FUNC_DECL(op_bit);
 OP_FUNC_DECL(op_eor);
 OP_FUNC_DECL(op_ora);
 
+OP_FUNC_DECL(op_adc);
+
 #endif

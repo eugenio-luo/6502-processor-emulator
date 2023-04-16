@@ -110,6 +110,15 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [ORA_ZEROX] = OPCODE(op_ora, ZEROX, 1, 4),
         [ORA_INDX_INDR] = OPCODE(op_ora, INDX_INDR, 1, 6),
         [ORA_INDR_INDY] = OPCODE(op_ora, INDR_INDY, 1, 5),
+
+        [ADC_IMM] = OPCODE(op_adc, IMM, 1, 2),
+        [ADC_ABS] = OPCODE(op_adc, ABS, 2, 4),
+        [ADC_ABSX] = OPCODE(op_adc, ABSX, 2, 4),
+        [ADC_ABSY] = OPCODE(op_adc, ABSY, 2, 4),
+        [ADC_ZERO] = OPCODE(op_adc, ZERO, 1, 3),
+        [ADC_ZEROX] = OPCODE(op_adc, ZEROX, 1, 4),
+        [ADC_INDX_INDR] = OPCODE(op_adc, INDX_INDR, 1, 6),
+        [ADC_INDR_INDY] = OPCODE(op_adc, INDR_INDY, 1, 5),
 };
 
 opcode_t *

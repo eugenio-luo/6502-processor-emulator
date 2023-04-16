@@ -122,6 +122,15 @@ enum {
         ORA_ZEROX = 0x15,
         ORA_INDX_INDR = 0x01,
         ORA_INDR_INDY = 0x11,
+
+        ADC_IMM = 0x69,
+        ADC_ABS = 0x6D,
+        ADC_ABSX = 0x7D,
+        ADC_ABSY = 0x79,
+        ADC_ZERO = 0x65,
+        ADC_ZEROX = 0x75,
+        ADC_INDX_INDR = 0x61,
+        ADC_INDR_INDY = 0x71,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
