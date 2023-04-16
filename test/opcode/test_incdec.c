@@ -56,8 +56,64 @@ test_dec(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_dex(void)
+{
+        int cycles;
+
+        /* 1. check if 0xCA works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_x(11);
+        cycles = op_exec(DEX, 0, 0);
+        TEST_CHECK("dex", 1, cycles == 2 && reg_get_x() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG */
+        reg_set_x(1);
+        cycles = op_exec(DEX, 0, 0);
+        TEST_CHECK("dex", 2, cycles == 2 && reg_get_x() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG */
+        reg_set_x(0);
+        cycles = op_exec(DEX, 0, 0);
+        TEST_CHECK("dex", 3, cycles == 2 && reg_get_x() == 0xFF &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+}
+
+static void
+test_dey(void)
+{
+        int cycles;
+
+        /* 1. check if 0x88 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_y(11);
+        cycles = op_exec(DEY, 0, 0);
+        TEST_CHECK("dey", 1, cycles == 2 && reg_get_y() == 10 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG */
+        reg_set_y(1);
+        cycles = op_exec(DEY, 0, 0);
+        TEST_CHECK("dey", 2, cycles == 2 && reg_get_y() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if NEG_FLAG */
+        reg_set_y(0);
+        cycles = op_exec(DEY, 0, 0);
+        TEST_CHECK("dey", 3, cycles == 2 && reg_get_y() == 0xFF &&
+                   reg_is_flag_set(NEG_FLAG));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_incdec(void)
 {
         test_dec();
+        test_dex();
+        test_dey();
 }

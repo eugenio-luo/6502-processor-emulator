@@ -12,3 +12,25 @@ op_dec(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 
         return 0;
 }
+
+int
+op_dex(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+        
+        reg_dec_x();
+        set_affected_flags(reg_get_x());
+        
+        return 0;
+}
+
+int
+op_dey(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+        
+        reg_dec_y();
+        set_affected_flags(reg_get_y());
+        
+        return 0;
+}
