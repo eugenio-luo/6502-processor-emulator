@@ -2,10 +2,9 @@
 #include "opcode/addr_mode.h"
 #include "cpu/registers.h"
 
-int
-op_adc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+static int
+op_addition_instr(uint8_t val)
 {
-        uint8_t val = op_get_addr_val(addr_mode, a, b);
         int new_val = val + reg_get_acc() + reg_is_flag_set(CARRY_FLAG);
         uint8_t new_byte = new_val & 0xFF;
         reg_set_acc(new_byte);
@@ -21,43 +20,43 @@ op_adc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 }
 
 int
-op_cmp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+op_adc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         uint8_t val = op_get_addr_val(addr_mode, a, b);
-        uint8_t new_val = reg_get_acc() - val;
+        return op_addition_instr(val);
+}
+
+static int 
+op_compare_instr(uint8_t val, uint8_t reg)
+{
+        uint8_t new_val = reg - val;
 
         set_affected_flags(new_val);
         reg_clear_flags(CARRY_FLAG);
-        if (reg_get_acc() >= val)
+        if (reg >= val)
                 reg_set_flags(CARRY_FLAG);
 
         return op_get_page_cross();
+}
+
+int
+op_cmp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        uint8_t val = op_get_addr_val(addr_mode, a, b);
+        return op_compare_instr(val, reg_get_acc());
 }
 
 int
 op_cpx(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         uint8_t val = op_get_addr_val(addr_mode, a, b);
-        uint8_t new_val = reg_get_x() - val;
-
-        set_affected_flags(new_val);
-        reg_clear_flags(CARRY_FLAG);
-        if (reg_get_x() >= val)
-                reg_set_flags(CARRY_FLAG);
-
-        return op_get_page_cross();
+        return op_compare_instr(val, reg_get_x());
 }
 
 int
 op_cpy(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         uint8_t val = op_get_addr_val(addr_mode, a, b);
-        uint8_t new_val = reg_get_y() - val;
-
-        set_affected_flags(new_val);
-        reg_clear_flags(CARRY_FLAG);
-        if (reg_get_y() >= val)
-                reg_set_flags(CARRY_FLAG);
-
-        return op_get_page_cross();
+        return op_compare_instr(val, reg_get_y());
 }
+
