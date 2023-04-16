@@ -148,6 +148,15 @@ enum {
         CPY_IMM = 0xC0,
         CPY_ABS = 0xCC,
         CPY_ZERO = 0xC4,
+
+        SBC_IMM = 0xE9,
+        SBC_ABS = 0xED,
+        SBC_ABSX = 0xFD,
+        SBC_ABSY = 0xF9,
+        SBC_ZERO = 0xE5,
+        SBC_ZEROX = 0xF5,
+        SBC_INDX_INDR = 0xE1,
+        SBC_INDR_INDY = 0xF1, 
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

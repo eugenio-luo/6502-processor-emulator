@@ -21,8 +21,8 @@ test_adc(void)
   
         /* 2. check if ZERO_FLAG, CARRY_FLAG and OVER_FLAG get set with 
               zero as 0x69 argument */
-        reg_set_acc(0xFF);
-        cycles = op_exec(ADC_IMM, 1, 0);
+        reg_set_acc(0x80);
+        cycles = op_exec(ADC_IMM, 0x80, 0);
         TEST_CHECK("adc", 2, cycles == 2 && reg_get_acc() == 0 &&
                    reg_is_flag_set(ZERO_FLAG | CARRY_FLAG | OVER_FLAG));
         cpu_reset(HARD_RESET);
@@ -336,6 +336,142 @@ test_cpy(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_sbc(void)
+{
+        int cycles;
+
+        /* 1. check if 0xE9 works, NEG_FLAG, ZERO_FLAG, OVER_FLAG
+              shouldn't be set while CARRY_FLAG should be */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        cycles = op_exec(SBC_IMM, 3, 0);
+        TEST_CHECK("sbc", 1, cycles == 2 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG | OVER_FLAG) ) &&
+                     reg_is_flag_set(CARRY_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 2. check if ZERO_FLAG get set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(0x80);
+        cycles = op_exec(SBC_IMM, 0x80, 0);
+        TEST_CHECK("sbc", 2, cycles == 2 && reg_get_acc() == 0 &&
+                   reg_is_flag_set(ZERO_FLAG));
+        cpu_reset(HARD_RESET);
+
+        /* 3. check if OVER_FLAG get set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(0x50);
+        cycles = op_exec(SBC_IMM, 0xB0, 0);
+        TEST_CHECK("sbc", 3, cycles == 2 && reg_get_acc() == 0xA0 &&
+                   reg_is_flag_set(OVER_FLAG));
+        cpu_reset(HARD_RESET);
+        
+        /* 4. check if 0xED works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x6FF, 3);
+        cycles = op_exec(SBC_ABS, 0xFF, 0x6);
+        TEST_CHECK("sbc", 4, cycles == 4 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 5. check if 0xFD works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x6FF, 3);
+        reg_set_x(0x1F);
+        cycles = op_exec(SBC_ABSX, 0xE0, 0x6);
+        TEST_CHECK("sbc", 5, cycles == 4 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 6. check if 0xFD cycles increases if page boundary is crossed */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x70F, 3);
+        reg_set_x(0x1F);
+        cycles = op_exec(SBC_ABSX, 0xF0, 0x6);
+        TEST_CHECK("sbc", 6, cycles == 5 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 7. check if 0xF9 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x6FF, 3);
+        reg_set_y(0x1F);
+        cycles = op_exec(SBC_ABSY, 0xE0, 0x6);
+        TEST_CHECK("sbc", 7, cycles == 4 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 8. check if 0xF9 cycles increases if page boundary is crossed */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x70F, 3);
+        reg_set_y(0x1F);
+        cycles = op_exec(SBC_ABSY, 0xF0, 0x6);
+        TEST_CHECK("sbc", 8, cycles == 5 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 9. check if 0xE5 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x85, 3);
+        cycles = op_exec(SBC_ZERO, 0x85, 0);
+        TEST_CHECK("sbc", 9, cycles == 3 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 10. check if 0xF5 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x85, 3);
+        reg_set_x(0x10);
+        cycles = op_exec(SBC_ZEROX, 0x75, 0);
+        TEST_CHECK("sbc", 10, cycles == 4 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 11. check if 0xE1 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x85, 0x32);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 3);
+        reg_set_x(0x2);
+        cycles = op_exec(SBC_INDX_INDR, 0x83, 0);
+        TEST_CHECK("sbc", 11, cycles == 6 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 12. check if 0xF1 works, NEG_FLAG and ZERO_FLAG shouldn't be set */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x85, 0x30);
+        mem_set(0x86, 0x4);
+        mem_set(0x432, 3);
+        reg_set_y(0x2);
+        cycles = op_exec(SBC_INDR_INDY, 0x85, 0);
+        TEST_CHECK("sbc", 12, cycles == 5 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+
+        /* 13. check if 0xF1 cycles increases if page boundary is crossed */
+        reg_set_flags(CARRY_FLAG);
+        reg_set_acc(5);
+        mem_set(0x85, 0xFF);
+        mem_set(0x86, 0x4);
+        mem_set(0x501, 3);
+        reg_set_y(0x2);
+        cycles = op_exec(SBC_INDR_INDY, 0x85, 0);
+        TEST_CHECK("sbc", 13, cycles == 6 && reg_get_acc() == 2 &&
+                   ( !reg_is_flag_set(NEG_FLAG | ZERO_FLAG) ));
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_arith(void)
 {
@@ -343,4 +479,5 @@ test_op_arith(void)
         test_cmp();
         test_cpx();
         test_cpy();
+        test_sbc();
 }

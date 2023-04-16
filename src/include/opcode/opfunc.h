@@ -40,5 +40,6 @@ OP_FUNC_DECL(op_adc);
 OP_FUNC_DECL(op_cmp);
 OP_FUNC_DECL(op_cpx);
 OP_FUNC_DECL(op_cpy);
+OP_FUNC_DECL(op_sbc);
 
 #endif

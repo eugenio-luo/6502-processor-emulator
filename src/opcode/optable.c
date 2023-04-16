@@ -136,6 +136,15 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [CPY_IMM] = OPCODE(op_cpy, IMM, 1, 2),
         [CPY_ABS] = OPCODE(op_cpy, ABS, 2, 4),
         [CPY_ZERO] = OPCODE(op_cpy, ZERO, 1, 3),
+
+        [SBC_IMM] = OPCODE(op_sbc, IMM, 1, 2),
+        [SBC_ABS] = OPCODE(op_sbc, ABS, 2, 4),
+        [SBC_ABSX] = OPCODE(op_sbc, ABSX, 2, 4),
+        [SBC_ABSY] = OPCODE(op_sbc, ABSY, 2, 4),
+        [SBC_ZERO] = OPCODE(op_sbc, ZERO, 1, 3),
+        [SBC_ZEROX] = OPCODE(op_sbc, ZEROX, 1, 4),
+        [SBC_INDX_INDR] = OPCODE(op_sbc, INDX_INDR, 1, 6),
+        [SBC_INDR_INDY] = OPCODE(op_sbc, INDR_INDY, 1, 5),
 };
 
 opcode_t *
