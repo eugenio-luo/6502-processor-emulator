@@ -77,14 +77,20 @@ mem_get_ppu(addr_t addr)
         return -1;
 }
 
-static uint8_t
-mem_get_ram(addr_t addr)
+static inline addr_t
+mem_get_real_addr(addr_t addr)
 {
         addr_t real_addr = addr;
         if (addr >= RAM_MIRROR_ADDR)
                 real_addr = (addr - RAM_MIRROR_ADDR) % RAM_SIZE;
+        
+        return real_addr;
+}
 
-        return memory[real_addr];
+static uint8_t
+mem_get_ram(addr_t addr)
+{
+        return memory[mem_get_real_addr(addr)];
 }
 
 static uint8_t
@@ -155,11 +161,7 @@ mem_set_ppu(addr_t addr, uint8_t val)
 static void
 mem_set_ram(addr_t addr, uint8_t val)
 {
-        addr_t real_addr = addr;
-        if (addr >= RAM_MIRROR_ADDR)
-                real_addr = (addr - RAM_MIRROR_ADDR) % RAM_SIZE;
-
-        memory[real_addr] = val;
+        memory[mem_get_real_addr(addr)] = val;
 }
 
 static void
@@ -192,4 +194,16 @@ mem_set(addr_t addr, uint8_t val)
         int idx = (addr & 0xF000) >> 12;
         setter_t setter = mem_setters[idx];
         setter(addr, val);
+}
+
+void
+mem_inc(addr_t addr)
+{
+        ++memory[mem_get_real_addr(addr)];
+}
+
+void
+mem_dec(addr_t addr)
+{
+        --memory[mem_get_real_addr(addr)];
 }

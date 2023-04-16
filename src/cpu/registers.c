@@ -148,3 +148,27 @@ reg_inc_pc(void)
 {
         ++regs.pc;
 }
+
+void
+reg_inc_x(void)
+{
+        ++regs.x;
+}
+
+void
+reg_inc_y(void)
+{
+        ++regs.y;
+}
+
+void
+reg_dec_x(void)
+{
+        --regs.x;
+}
+
+void
+reg_dec_y(void)
+{
+        --regs.y;
+}

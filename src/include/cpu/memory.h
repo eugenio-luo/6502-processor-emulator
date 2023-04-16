@@ -13,4 +13,7 @@ void mem_reset(int hard);
 uint8_t mem_get(addr_t addr);
 void mem_set(addr_t addr, uint8_t val);
 
+void mem_inc(addr_t addr);
+void mem_dec(addr_t addr);
+
 #endif

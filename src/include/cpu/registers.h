@@ -38,5 +38,10 @@ uint8_t reg_get_flags(void);
 int reg_is_flag_set(reg_flag_t val);
 
 void reg_inc_pc(void);
+void reg_inc_x(void);
+void reg_inc_y(void);
+
+void reg_dec_x(void);
+void reg_dec_y(void);
 
 #endif
