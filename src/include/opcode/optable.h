@@ -180,6 +180,7 @@ enum {
         BMI = 0x30,
         BNE = 0xD0,
         BPL = 0x10,
+        BVC = 0x50,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

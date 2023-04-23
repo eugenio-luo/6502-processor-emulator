@@ -168,6 +168,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [BMI] = OPCODE(op_bmi, REL, 1, 2),
         [BNE] = OPCODE(op_bne, REL, 1, 2),
         [BPL] = OPCODE(op_bpl, REL, 1, 2),
+        [BVC] = OPCODE(op_bvc, REL, 1, 2),
 };
 
 opcode_t *
