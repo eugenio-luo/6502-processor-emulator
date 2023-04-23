@@ -44,5 +44,5 @@ op_exec(uint8_t op, uint8_t a, uint8_t b)
         opcode_t *opcode = op_get(op);
 
         return opcode->cycles + opcode->func(opcode->addr_mode, a, b);
-        
+
 }

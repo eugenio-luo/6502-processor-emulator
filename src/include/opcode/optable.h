@@ -175,6 +175,7 @@ enum {
         INY = 0xC8,
 
         BCC = 0x90,
+        BCS = 0xB0,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

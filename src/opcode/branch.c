@@ -21,3 +21,10 @@ op_bcc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         addr_t addr = op_get_addr(addr_mode, a, b);
         return op_branch_instr(addr, CARRY_FLAG, 0);
 }
+
+int
+op_bcs(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        addr_t addr = op_get_addr(addr_mode, a, b);
+        return op_branch_instr(addr, CARRY_FLAG, 1);
+}

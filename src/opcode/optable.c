@@ -163,6 +163,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [INY] = OPCODE(op_iny, IMPL, 0, 2),
 
         [BCC] = OPCODE(op_bcc, REL, 1, 2),
+        [BCS] = OPCODE(op_bcs, REL, 1, 2),
 };
 
 opcode_t *
