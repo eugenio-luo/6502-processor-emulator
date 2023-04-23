@@ -60,8 +60,10 @@ static addr_t
 addr_mode_rel(uint8_t a, uint8_t b)
 {
         (void) b;
-        uint8_t pc = reg_get_pc();
-
+        addr_t pc = reg_get_pc();
+        
+        check_page_cross(pc, a);
+        
         return pc + a;
 }
 
@@ -145,9 +147,11 @@ static addr_func_t addr_mode_table[] = {
         addr_mode_indr_indy,
 };
 
-static addr_t
+addr_t
 op_get_addr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
+        is_page_crossed = 0;
+        
         addr_func_t addr_func = addr_mode_table[addr_mode];
         return addr_func(a, b);
 }
@@ -155,13 +159,13 @@ op_get_addr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 uint8_t
 op_get_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
-        is_page_crossed = 0;
-
         switch (addr_mode) {
         case ACC:
+                is_page_crossed = 0;
                 return reg_get_acc();
 
         case IMM:
+                is_page_crossed = 0;
                 return a;
                 
         default:
@@ -172,9 +176,8 @@ op_get_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 void
 op_set_addr_val(addr_mode_t addr_mode, uint8_t a, uint8_t b, uint8_t val)
 {
-        is_page_crossed = 0;
-
         if (addr_mode == ACC) {
+                is_page_crossed = 0;
                 reg_set_acc(val);
                 return;
         }
