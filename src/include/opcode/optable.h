@@ -182,6 +182,11 @@ enum {
         BPL = 0x10,
         BVC = 0x50,
         BVS = 0x70,
+
+        CLC = 0x18,
+        CLD = 0xD8,
+        CLI = 0x58,
+        CLV = 0xB8,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

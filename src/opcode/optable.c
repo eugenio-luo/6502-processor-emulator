@@ -170,6 +170,11 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [BPL] = OPCODE(op_bpl, REL, 1, 2),
         [BVC] = OPCODE(op_bvc, REL, 1, 2),
         [BVS] = OPCODE(op_bvs, REL, 1, 2),
+
+        [CLC] = OPCODE(op_clc, IMPL, 0, 2),
+        [CLD] = OPCODE(op_cld, IMPL, 0, 2),
+        [CLI] = OPCODE(op_cli, IMPL, 0, 2),
+        [CLV] = OPCODE(op_clv, IMPL, 0, 2),
 };
 
 opcode_t *

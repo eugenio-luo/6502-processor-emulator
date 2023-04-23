@@ -58,4 +58,9 @@ OP_FUNC_DECL(op_bpl);
 OP_FUNC_DECL(op_bvc);
 OP_FUNC_DECL(op_bvs);
 
+OP_FUNC_DECL(op_clc);
+OP_FUNC_DECL(op_cld);
+OP_FUNC_DECL(op_cli);
+OP_FUNC_DECL(op_clv);
+
 #endif
