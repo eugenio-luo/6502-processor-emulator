@@ -51,5 +51,6 @@ OP_FUNC_DECL(op_iny);
 
 OP_FUNC_DECL(op_bcc);
 OP_FUNC_DECL(op_bcs);
+OP_FUNC_DECL(op_beq);
 
 #endif
