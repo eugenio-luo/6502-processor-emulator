@@ -187,6 +187,9 @@ enum {
         CLD = 0xD8,
         CLI = 0x58,
         CLV = 0xB8,
+        SEC = 0x38,
+        SED = 0xF8,
+        SEI = 0x78,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

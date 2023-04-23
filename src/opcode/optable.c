@@ -175,6 +175,9 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [CLD] = OPCODE(op_cld, IMPL, 0, 2),
         [CLI] = OPCODE(op_cli, IMPL, 0, 2),
         [CLV] = OPCODE(op_clv, IMPL, 0, 2),
+        [SEC] = OPCODE(op_sec, IMPL, 0, 2),
+        [SED] = OPCODE(op_sed, IMPL, 0, 2),
+        [SEI] = OPCODE(op_sei, IMPL, 0, 2),
 };
 
 opcode_t *

@@ -62,5 +62,8 @@ OP_FUNC_DECL(op_clc);
 OP_FUNC_DECL(op_cld);
 OP_FUNC_DECL(op_cli);
 OP_FUNC_DECL(op_clv);
+OP_FUNC_DECL(op_sec);
+OP_FUNC_DECL(op_sed);
+OP_FUNC_DECL(op_sei);
 
 #endif
