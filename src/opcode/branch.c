@@ -64,4 +64,9 @@ op_bvc(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         return op_branch_instr(addr, OVER_FLAG, 0);
 }
 
-
+int
+op_bvs(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        addr_t addr = op_get_addr(addr_mode, a, b);
+        return op_branch_instr(addr, OVER_FLAG, 1);
+}

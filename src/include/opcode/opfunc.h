@@ -56,5 +56,6 @@ OP_FUNC_DECL(op_bmi);
 OP_FUNC_DECL(op_bne);
 OP_FUNC_DECL(op_bpl);
 OP_FUNC_DECL(op_bvc);
+OP_FUNC_DECL(op_bvs);
 
 #endif

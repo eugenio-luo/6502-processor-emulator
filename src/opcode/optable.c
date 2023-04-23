@@ -169,6 +169,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [BNE] = OPCODE(op_bne, REL, 1, 2),
         [BPL] = OPCODE(op_bpl, REL, 1, 2),
         [BVC] = OPCODE(op_bvc, REL, 1, 2),
+        [BVS] = OPCODE(op_bvs, REL, 1, 2),
 };
 
 opcode_t *
