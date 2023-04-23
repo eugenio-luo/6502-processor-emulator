@@ -33,6 +33,7 @@ test_op(void)
         test_op_logic();
         test_op_arith();
         test_op_incdec();
+        test_op_branch();
 }
 
 void
