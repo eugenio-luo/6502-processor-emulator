@@ -165,6 +165,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [BCC] = OPCODE(op_bcc, REL, 1, 2),
         [BCS] = OPCODE(op_bcs, REL, 1, 2),
         [BEQ] = OPCODE(op_beq, REL, 1, 2),
+        [BMI] = OPCODE(op_bmi, REL, 1, 2),
 };
 
 opcode_t *
