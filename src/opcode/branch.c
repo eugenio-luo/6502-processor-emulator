@@ -42,3 +42,11 @@ op_bmi(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         addr_t addr = op_get_addr(addr_mode, a, b);
         return op_branch_instr(addr, NEG_FLAG, 1);
 }
+
+int
+op_bne(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        addr_t addr = op_get_addr(addr_mode, a, b);
+        return op_branch_instr(addr, ZERO_FLAG, 0);
+}
+
