@@ -60,7 +60,7 @@ test_jsr(void)
         stack_pop();
         uint8_t pch = stack_top();
         TEST_CHECK("jsr", 1, cycles == 6 && reg_get_pc() == 0x432 &&
-                   pcl == 0x4 && pch == 0x1);
+                   pcl == 0x6 && pch == 0x1);
         cpu_reset(HARD_RESET);
 }
 
@@ -79,6 +79,19 @@ test_rti(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_rts(void)
+{
+        int cycles;
+
+        /* check if 0x60 works */
+        reg_set_pc(0x100);
+        op_exec(JSR, 0x32, 0x4);
+        cycles = op_exec(RTS, 0, 0);
+        TEST_CHECK("rts", 1, cycles == 6 && reg_get_pc() == 0x103);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_control(void)
 {
@@ -86,4 +99,5 @@ test_op_control(void)
         test_jmp();
         test_jsr();
         test_rti();
+        test_rts();
 }

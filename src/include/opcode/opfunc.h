@@ -70,5 +70,7 @@ OP_FUNC_DECL(op_brk);
 OP_FUNC_DECL(op_jmp);
 OP_FUNC_DECL(op_jsr);
 OP_FUNC_DECL(op_rti);
+OP_FUNC_DECL(op_rts);
+OP_FUNC_DECL(op_nop);
 
 #endif

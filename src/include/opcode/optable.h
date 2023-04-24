@@ -197,6 +197,8 @@ enum {
         BRK = 0x00,
         JSR = 0x20,
         RTI = 0x40,
+        RTS = 0x60,
+        NOP = 0xEA,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);

@@ -49,7 +49,7 @@ int
 op_jsr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         addr_t addr = op_get_addr(addr_mode, a, b);
-        op_push_pc(reg_get_pc());
+        op_push_pc(reg_get_pc() + 2);
         reg_set_pc(addr);
         return 0;
 }
@@ -62,5 +62,21 @@ op_rti(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         reg_force_flags(stack_top());
         stack_pop();
         reg_set_pc(op_pop_pc());
+        return 0;
+}
+
+int
+op_rts(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+
+        reg_set_pc(op_pop_pc() + 1);
+        return 0;
+}
+
+int
+op_nop(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
         return 0;
 }
