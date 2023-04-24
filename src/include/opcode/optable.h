@@ -191,6 +191,9 @@ enum {
         SED = 0xF8,
         SEI = 0x78,
 
+        JMP_ABS = 0x4C,
+        JMP_INDR = 0x6C,
+        
         BRK = 0x00,
 };
 

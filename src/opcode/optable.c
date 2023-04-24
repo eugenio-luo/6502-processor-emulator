@@ -179,6 +179,9 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [SED] = OPCODE(op_sed, IMPL, 0, 2),
         [SEI] = OPCODE(op_sei, IMPL, 0, 2),
 
+        [JMP_ABS] = OPCODE(op_jmp, ABS, 2, 3),
+        [JMP_INDR] = OPCODE(op_jmp, INDR, 2, 5),
+        
         [BRK] = OPCODE(op_brk, IMPL, 0, 7),
 };
 

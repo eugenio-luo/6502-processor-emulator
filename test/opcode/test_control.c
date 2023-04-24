@@ -30,8 +30,27 @@ test_brk(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_jmp(void)
+{
+        int cycles;
+
+        /* 1. check if 0x4C works */
+        cycles = op_exec(JMP_ABS, 0x32, 0x4);
+        TEST_CHECK("jmp", 1, cycles == 3 && reg_get_pc() == 0x432);
+        cpu_reset(HARD_RESET);
+
+        /* 1. check if 0x6C works */
+        mem_set(0x432, 0x2);
+        mem_set(0x433, 0x4);
+        cycles = op_exec(JMP_INDR, 0x32, 0x4);
+        TEST_CHECK("jmp", 2, cycles == 5 && reg_get_pc() == 0x402);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_control(void)
 {
         test_brk();
+        test_jmp();
 }

@@ -22,7 +22,6 @@ op_brk(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         return 0;
 }
 
-/*
 int
 op_jmp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
@@ -30,4 +29,3 @@ op_jmp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         reg_set_pc(addr);
         return 0;
 }
-*/
