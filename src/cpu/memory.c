@@ -12,6 +12,9 @@
    - handle PPU addresses
 */
 
+#define INT_VEC_ADDR      0xFFFA
+#define INT_VEC_SIZE      6
+
 #define PPU_ADDR          0x2000
 #define PPU_ADDR_SIZE     0x8
 #define PPU_MIRROR_ADDR   0x2008
@@ -23,6 +26,7 @@
 typedef uint8_t (*getter_t)(addr_t);
 typedef void (*setter_t)(addr_t, uint8_t);
 
+static uint8_t int_vector[INT_VEC_SIZE];
 static uint8_t memory[RAM_SIZE];
 
 void
@@ -42,6 +46,16 @@ mem_reset(int hard)
 
                 memset(&memory[0], 0, RAM_SIZE);
         }
+}
+
+static uint8_t
+mem_get_cartr_vec(addr_t addr)
+{
+        if (addr >= INT_VEC_ADDR)
+                return int_vector[addr - INT_VEC_ADDR];
+
+        log_error("[memory.c: mem_get] %x: CARTRIDGE_ADDR not implemented yet", addr);
+        return -1;
 }
 
 static uint8_t
@@ -114,7 +128,7 @@ static const getter_t mem_getters[] = {
         mem_get_cartr, mem_get_cartr, /* 0x9000 - 0xAFFF */
         mem_get_cartr, mem_get_cartr, /* 0xB000 - 0xCFFF */
         mem_get_cartr, mem_get_cartr, /* 0xD000 - 0xEFFF */
-        mem_get_cartr,                /* 0xF000 - 0xFFFF */
+        mem_get_cartr_vec,            /* 0xF000 - 0xFFFF */
 };
 
 uint8_t
@@ -126,12 +140,23 @@ mem_get(addr_t addr)
 }
 
 static void
+mem_set_cartr_vec(addr_t addr, uint8_t val)
+{
+        if (addr >= INT_VEC_ADDR) {
+                int_vector[addr - INT_VEC_ADDR] = val;
+                return;
+        }
+                
+        log_error("[memory.c: mem_set] %x: CARTRIDGE_ADDR not implemented yet", addr);
+}
+
+static void
 mem_set_cartr(addr_t addr, uint8_t val)
 {
         log_error("[memory.c: mem_set] %x: CARTRIDGE_ADDR not implemented yet", addr);
         (void) val;
 }
-
+        
 static void
 mem_set_cpu_test(addr_t addr, uint8_t val)
 {
@@ -185,7 +210,7 @@ static const setter_t mem_setters[] = {
         mem_set_cartr, mem_set_cartr, /* 0x9000 - 0xAFFF */
         mem_set_cartr, mem_set_cartr, /* 0xB000 - 0xCFFF */
         mem_set_cartr, mem_set_cartr, /* 0xD000 - 0xEFFF */
-        mem_set_cartr,                /* 0xF000 - 0xFFFF */
+        mem_set_cartr_vec,            /* 0xF000 - 0xFFFF */
 };
 
 void
