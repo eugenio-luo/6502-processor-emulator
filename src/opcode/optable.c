@@ -183,6 +183,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [JMP_INDR] = OPCODE(op_jmp, INDR, 2, 5),
         
         [BRK] = OPCODE(op_brk, IMPL, 0, 7),
+        [JSR] = OPCODE(op_jsr, ABS, 2, 6),
 };
 
 opcode_t *

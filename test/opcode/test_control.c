@@ -48,9 +48,26 @@ test_jmp(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_jsr(void)
+{
+        int cycles;
+
+        /* 1. check if 0x20 works */
+        reg_set_pc(0x104);
+        cycles = op_exec(JSR, 0x32, 0x4);
+        uint8_t pcl = stack_top();
+        stack_pop();
+        uint8_t pch = stack_top();
+        TEST_CHECK("jsr", 1, cycles == 6 && reg_get_pc() == 0x432 &&
+                   pcl == 0x4 && pch == 0x1);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_control(void)
 {
         test_brk();
         test_jmp();
+        test_jsr();
 }

@@ -68,5 +68,6 @@ OP_FUNC_DECL(op_sei);
 
 OP_FUNC_DECL(op_brk);
 OP_FUNC_DECL(op_jmp);
+OP_FUNC_DECL(op_jsr);
 
 #endif
