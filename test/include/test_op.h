@@ -10,5 +10,6 @@ void test_op_arith(void);
 void test_op_incdec(void);
 void test_op_branch(void);
 void test_op_flags(void);
+void test_op_control(void);
 
 #endif

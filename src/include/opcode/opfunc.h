@@ -66,4 +66,6 @@ OP_FUNC_DECL(op_sec);
 OP_FUNC_DECL(op_sed);
 OP_FUNC_DECL(op_sei);
 
+OP_FUNC_DECL(op_brk);
+
 #endif

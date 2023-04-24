@@ -178,6 +178,8 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         [SEC] = OPCODE(op_sec, IMPL, 0, 2),
         [SED] = OPCODE(op_sed, IMPL, 0, 2),
         [SEI] = OPCODE(op_sei, IMPL, 0, 2),
+
+        [BRK] = OPCODE(op_brk, IMPL, 0, 7),
 };
 
 opcode_t *

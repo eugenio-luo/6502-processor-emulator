@@ -35,6 +35,7 @@ test_op(void)
         test_op_incdec();
         test_op_branch();
         test_op_flags();
+        test_op_control();
 }
 
 void

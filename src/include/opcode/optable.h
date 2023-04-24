@@ -190,6 +190,8 @@ enum {
         SEC = 0x38,
         SED = 0xF8,
         SEI = 0x78,
+
+        BRK = 0x00,
 };
 
 typedef int (*op_func_t)(addr_mode_t, uint8_t, uint8_t);
