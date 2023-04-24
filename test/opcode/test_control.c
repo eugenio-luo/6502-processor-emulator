@@ -64,10 +64,26 @@ test_jsr(void)
         cpu_reset(HARD_RESET);
 }
 
+static void
+test_rti(void)
+{
+        int cycles;
+
+        /* check if 0x40 works */
+        uint8_t old_flags = reg_get_flags();
+        reg_set_pc(0x100);
+        op_exec(BRK, 0, 0);
+        cycles = op_exec(RTI, 0, 0);
+        TEST_CHECK("rti", 1, cycles == 6 && reg_get_pc() == 0x102 &&
+                   reg_get_flags() == old_flags);
+        cpu_reset(HARD_RESET);
+}
+
 void
 test_op_control(void)
 {
         test_brk();
         test_jmp();
         test_jsr();
+        test_rti();
 }

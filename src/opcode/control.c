@@ -11,6 +11,16 @@ op_push_pc(uint16_t pc)
         stack_push(pc & 0xFF);
 }
 
+static inline uint16_t
+op_pop_pc(void)
+{
+        uint8_t pcl = stack_top();
+        stack_pop();
+        uint8_t pch = stack_top();
+        stack_pop();
+        return (pch << 8) | pcl;
+}
+
 int
 op_brk(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
@@ -41,5 +51,16 @@ op_jsr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         addr_t addr = op_get_addr(addr_mode, a, b);
         op_push_pc(reg_get_pc());
         reg_set_pc(addr);
+        return 0;
+}
+
+int
+op_rti(addr_mode_t addr_mode, uint8_t a, uint8_t b)
+{
+        (void) addr_mode, (void) a, (void) b;
+        
+        reg_force_flags(stack_top());
+        stack_pop();
+        reg_set_pc(op_pop_pc());
         return 0;
 }

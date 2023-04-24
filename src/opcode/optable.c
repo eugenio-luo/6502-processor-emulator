@@ -184,6 +184,7 @@ static opcode_t op_table[OP_TABLE_SIZE] = {
         
         [BRK] = OPCODE(op_brk, IMPL, 0, 7),
         [JSR] = OPCODE(op_jsr, ABS, 2, 6),
+        [RTI] = OPCODE(op_rti, IMPL, 0, 6),
 };
 
 opcode_t *
