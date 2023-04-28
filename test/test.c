@@ -1,18 +1,21 @@
 #include "test.h"
 #include "test_cpu.h"
 #include "test_op.h"
+#include "test_rom.h"
 #include "cpu/registers.h"
 
 static int error_state = 0;
 
 static void test_cpu(void);
 static void test_op(void);
+static void test_rom(void);
 
 void
 test_sys(void)
 {
         test_cpu();
         test_op();
+        test_rom();
 }
 
 static void
@@ -36,6 +39,13 @@ test_op(void)
         test_op_branch();
         test_op_flags();
         test_op_control();
+}
+
+static void
+test_rom(void)
+{
+        test_rom_load();
+        test_rom_nrom();
 }
 
 void
