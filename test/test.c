@@ -46,6 +46,8 @@ test_rom(void)
 {
         test_rom_load();
         test_rom_nrom();
+
+        test_nestest();
 }
 
 void

@@ -3,5 +3,6 @@
 
 void test_rom_load(void);
 void test_rom_nrom(void);
+void test_nestest(void);
 
 #endif
