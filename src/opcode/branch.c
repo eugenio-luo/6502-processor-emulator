@@ -5,14 +5,12 @@
 static int
 op_branch_instr(addr_t addr, reg_flag_t flag, int is_set)
 {
-        int ret = op_get_page_cross();
-        
         if ((~is_set ^ reg_is_flag_set(flag)) & 0x1) {
                 reg_set_pc(addr);
-                ++ret; 
+                return op_get_page_cross() + 1;
         }
 
-        return ret;
+        return 0;
 }
         
 int
