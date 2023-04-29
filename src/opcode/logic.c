@@ -38,10 +38,13 @@ op_bit(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         uint8_t val = op_get_addr_val(addr_mode, a, b);
         uint8_t new_val = val & reg_get_acc();
 
-        set_affected_flags(new_val);
-        reg_clear_flags(OVER_FLAG);
-        if (new_val & 0x40)
+        reg_clear_flags(NEG_FLAG | OVER_FLAG | ZERO_FLAG);
+        if (val & 0x80)
+                reg_set_flags(NEG_FLAG);
+        if (val & 0x40)
                 reg_set_flags(OVER_FLAG);
-
+        if (!new_val)
+                reg_set_flags(ZERO_FLAG);
+        
         return 0;
 }
