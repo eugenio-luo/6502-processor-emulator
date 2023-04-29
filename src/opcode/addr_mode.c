@@ -124,7 +124,7 @@ addr_mode_indr_indy(uint8_t a, uint8_t b)
         (void) b;
         uint8_t y = reg_get_y();
         uint8_t val0 = mem_get(a);
-        uint8_t val1 = mem_get(a + 1);
+        uint8_t val1 = mem_get((a + 1) % ZERO_PAGE_SIZE);
         addr_t addr = (val1 << 8) | val0;
 
         check_page_cross(addr, y);
