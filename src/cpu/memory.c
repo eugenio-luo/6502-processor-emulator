@@ -4,6 +4,7 @@
 #include "cpu/memory.h"
 #include "cpu/cpu.h"
 #include "log.h"
+#include "rom/rom.h"
 
 /* TODO:
    - handle CARTRIDGE_ADDR addresses
@@ -53,16 +54,14 @@ mem_get_cartr_vec(addr_t addr)
 {
         if (addr >= INT_VEC_ADDR)
                 return int_vector[addr - INT_VEC_ADDR];
-
-        log_error("[memory.c: mem_get] %x: CARTRIDGE_ADDR not implemented yet", addr);
-        return -1;
+        
+        return rom_mem_get(addr);
 }
 
 static uint8_t
 mem_get_cartr(addr_t addr)
 {
-        log_error("[memory.c: mem_get] %x: CARTRIDGE_ADDR not implemented yet", addr);
-        return -1;
+        return rom_mem_get(addr);
 }
 
 static uint8_t
@@ -146,15 +145,14 @@ mem_set_cartr_vec(addr_t addr, uint8_t val)
                 int_vector[addr - INT_VEC_ADDR] = val;
                 return;
         }
-                
-        log_error("[memory.c: mem_set] %x: CARTRIDGE_ADDR not implemented yet", addr);
+
+        rom_mem_set(addr, val);
 }
 
 static void
 mem_set_cartr(addr_t addr, uint8_t val)
 {
-        log_error("[memory.c: mem_set] %x: CARTRIDGE_ADDR not implemented yet", addr);
-        (void) val;
+        rom_mem_set(addr, val);
 }
         
 static void

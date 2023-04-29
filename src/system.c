@@ -17,6 +17,7 @@ void
 sys_reset(int hard)
 {
         cpu_reset(hard);
+        rom_reset();
 }        
 
 void

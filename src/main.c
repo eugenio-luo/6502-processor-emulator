@@ -23,7 +23,7 @@ main(int argc, char **argv)
 
         (void) argc, (void) argv;
         test_sys();
-
+        
 #else
 
         sys_load(argv[1]); 
@@ -31,7 +31,6 @@ main(int argc, char **argv)
 
 #endif
                 
-
         sys_quit();
         
         return 0;

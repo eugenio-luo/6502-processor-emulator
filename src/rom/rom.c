@@ -5,8 +5,10 @@
 #include <stdint.h>
 
 #include "rom/rom.h"
+#include "rom/romtable.h"
 #include "log.h"
 
+/* TODO: write tests for ROM */
 /* TODO: for now it only supports iNES files, UNIF files should be implemented */
 
 #define HEAD_CONST           "NES\x1A"
@@ -29,18 +31,7 @@ enum {
 
 #define RAM_BYTE               8
 
-struct {
-        char *buf;
-        int prg_rom;
-        int vrom;
-        int vertical_mir;
-        int battery_ram;
-        int trainer;
-        int fscr_mir;
-        int map_num;
-        int ram;
-        long size;
-} rbuf;
+static rbuf_t rbuf = { .valid = 0 };
 
 static void
 rom_read_header(void)
@@ -111,8 +102,22 @@ rom_file_to_buf(const char *rom_path)
 void
 rom_load(const char *rom_path)
 {
+        log_write("[rom.c: rom_load] ROM loading...");
+        
         rom_file_to_buf(rom_path);
         rom_read_header();
+
+        rbuf.valid = 1;
+}
+
+void
+rom_reset()
+{
+        log_write("[rom.c: rom_reset] rom reset");
+        
+        rom_quit();
+
+        memset(&rbuf, 0, sizeof(rbuf));
 }
 
 void
@@ -120,4 +125,32 @@ rom_quit(void)
 {
         if (rbuf.buf)
                 free(rbuf.buf);
+}
+
+uint8_t
+rom_mem_get(addr_t addr)
+{
+        if (!rbuf.valid) {
+                log_error("[rom.c: rom_mem_get] ROM isn't valid or hasn't loaded yet");
+                return -1;
+        }
+        
+        rom_map_t *rom_map = rom_map_get(rbuf.map_num);
+        return rom_map->get(&rbuf, addr);
+}
+
+void
+rom_mem_set(addr_t addr, uint8_t val)
+{
+        if (!rbuf.valid)
+                log_error("[rom.c: rom_mem_set] ROM isn't valid or hasn't loaded yet");
+        
+        rom_map_t *rom_map = rom_map_get(rbuf.map_num);
+        rom_map->set(&rbuf, addr, val);
+}
+
+rbuf_t *
+rom_get_rbuf(void)
+{
+        return &rbuf;
 }
