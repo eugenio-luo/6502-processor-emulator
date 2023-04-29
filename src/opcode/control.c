@@ -49,7 +49,10 @@ int
 op_jsr(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         addr_t addr = op_get_addr(addr_mode, a, b);
-        op_push_pc(reg_get_pc() + 2);
+        /* TODO: the program counter already got increased when fetching for 
+                 arguments, so it is already pointing to the next instruction, 
+                 therefore instead of pushing PC + 2, PC - 1 is pushed instead */
+        op_push_pc(reg_get_pc() - 1);
         reg_set_pc(addr);
         return 0;
 }
