@@ -49,8 +49,9 @@ int
 op_txs(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         (void) addr_mode, (void) a, (void) b;
-        
-        op_transfer_instr(reg_get_x, reg_set_sp);
+
+        uint8_t val = reg_get_x();
+        reg_set_sp(val);
         return 0;
 }
 
