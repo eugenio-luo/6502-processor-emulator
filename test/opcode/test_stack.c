@@ -30,9 +30,10 @@ test_op_stack(void)
         cpu_reset(HARD_RESET);
 
         /* 4. check if 0x28 works */
-        stack_push(10);
+        reg_force_flags(0x24);
+        stack_push(0x40);
         cycles = op_exec(PLP, 0, 0);
-        TEST_CHECK("plp", 1, cycles == 4 && reg_get_flags() == 10);
+        TEST_CHECK("plp", 1, cycles == 4 && reg_get_flags() == 0x60);
         cpu_reset(HARD_RESET);
 }
 
