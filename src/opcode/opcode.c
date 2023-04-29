@@ -25,7 +25,7 @@ op_read_byte(void)
         return byte;
 }
 
-void
+int
 op_next(void)
 {
         uint8_t b = op_read_byte();
@@ -35,7 +35,7 @@ op_next(void)
         for (int i = 0; i < opcode->args; ++i)
                 args[i] = op_read_byte();
         
-        opcode->func(opcode->addr_mode, args[0], args[1]);
+        return opcode->cycles + opcode->func(opcode->addr_mode, args[0], args[1]);
 }
 
 int
