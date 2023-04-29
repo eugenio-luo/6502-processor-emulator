@@ -5,6 +5,8 @@
 #include "cpu/memory.h"
 #include "cpu/registers.h"
 
+/* TODO: implement unofficial/illegal opcodes */
+
 void
 op_init(void)
 {

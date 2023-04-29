@@ -16,9 +16,11 @@ test_nestest(void)
 
         log_write("02h:%03x CYC:%d ", mem_get(0x2), cycles);
         reg_log();
-        for (;;) {
+        while (cycles <= 14575) {
                 cycles += op_next();
                 log_write("02h:%03x CYC:%d ", mem_get(0x2), cycles);
                 reg_log();
         }
+
+        TEST_CHECK("nestest", 1, cycles == 14579);
 }
