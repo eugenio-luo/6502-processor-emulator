@@ -43,9 +43,12 @@ op_plp(addr_mode_t addr_mode, uint8_t a, uint8_t b)
         (void) addr_mode, (void) a, (void) b;
 
         /* TODO: should BREAK flag be changed? */
-        uint8_t val = stack_top();
+        uint8_t new_flag = stack_top();
         stack_pop();
-        reg_force_flags(val);
+        uint8_t actual_flag = reg_get_flags();
+        new_flag &= ~(BREAK_COM0 | BREAK_COM1);
+        new_flag |= actual_flag & (BREAK_COM0 | BREAK_COM1);
+        reg_force_flags(new_flag);
 
         return 0;
 }
