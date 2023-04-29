@@ -8,7 +8,7 @@ sys_init(void)
 {
         log_init(LOG_DIR_PATH);
 
-        log_write("[system.c: sys_init] system initialization...");
+        log_write("[system.c: sys_init] system initialization...\n");
 
         cpu_init();
 }
@@ -23,7 +23,7 @@ sys_reset(int hard)
 void
 sys_quit(void)
 {
-        log_write("[system.c: sys_quit] system termination...");
+        log_write("[system.c: sys_quit] system termination...\n");
         
         log_quit();
         rom_quit();
@@ -32,7 +32,7 @@ sys_quit(void)
 void
 sys_load(const char *rom_path)
 {
-        log_write("[system.c: sys_load] system loading " GREEN "%s" RESET "...",
+        log_write("[system.c: sys_load] system loading " GREEN "%s" RESET "...\n",
                   rom_path);
 
         rom_load(rom_path);

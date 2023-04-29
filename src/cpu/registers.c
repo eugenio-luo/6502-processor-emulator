@@ -24,7 +24,7 @@ static regs_t regs;
 void
 regs_init(void)
 {
-        log_write("[registers.c: regs_init] registers initialization...");
+        log_write("[registers.c: regs_init] registers initialization...\n");
         
         regs_reset(HARD_RESET);
 }
@@ -34,7 +34,7 @@ regs_reset(int hard)
 {
         if (hard) {
                 
-                log_write("[registers.c: regs_reset] registers hard reset");
+                log_write("[registers.c: regs_reset] registers hard reset\n");
                 
                 reg_force_flags(INT_DISABLE | BREAK_COM0 | BREAK_COM1);
 
@@ -46,7 +46,7 @@ regs_reset(int hard)
 
         } else {
 
-                log_write("[registers.c: regs_reset] registers soft reset");
+                log_write("[registers.c: regs_reset] registers soft reset\n");
 
                 reg_set_flags(INT_DISABLE);
                 reg_set_sp(reg_get_sp() - RESET_STACK_DEC);
@@ -171,4 +171,10 @@ void
 reg_dec_y(void)
 {
         --regs.y;
+}
+
+void
+reg_log(void)
+{
+        log_write("PC: %04x A:%02x X:%02x Y:%02x P:%02x SP:%02x\n", regs.pc, regs.acc, regs.x, regs.y, regs.flags, regs.sp);
 }

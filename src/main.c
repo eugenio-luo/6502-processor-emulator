@@ -13,7 +13,7 @@ main(int argc, char **argv)
 #ifndef TEST
 
         if (argc < 2)
-                log_error("[main.c: main] A ROM file has to provided as argument");
+                log_error("[main.c: main] A ROM file has to provided as argument\n");
 
 #endif
         

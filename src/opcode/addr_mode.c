@@ -27,7 +27,7 @@ static addr_t
 addr_mode_error(uint8_t a, uint8_t b)
 {
         (void) a, (void) b;
-        log_error("[addr_mode.c: addr_mode_error] inexistant address mode");
+        log_error("[addr_mode.c: addr_mode_error] inexistant address mode\n");
         return -1;
 }
 

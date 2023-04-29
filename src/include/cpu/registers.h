@@ -44,4 +44,6 @@ void reg_inc_y(void);
 void reg_dec_x(void);
 void reg_dec_y(void);
 
+void reg_log(void);
+
 #endif

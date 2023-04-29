@@ -6,7 +6,7 @@
 void
 cpu_init(void)
 {
-        log_write("[cpu.c: cpu_init] CPU initialization...");
+        log_write("[cpu.c: cpu_init] CPU initialization...\n");
         
         regs_init();
         mem_init();

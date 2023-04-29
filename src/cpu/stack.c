@@ -16,7 +16,7 @@ stack_prev(uint8_t sp)
 {
         uint8_t new_sp = (sp + 1) % STACK_SIZE;
         if (new_sp < sp)
-                log_warning("[stack.c: stack_push] stack overflow");
+                log_warning("[stack.c: stack_push] stack overflow\n");
 
         return new_sp;
 }
@@ -26,7 +26,7 @@ stack_next(uint8_t sp)
 {
         uint8_t new_sp = (sp - 1) % STACK_SIZE;
         if (new_sp > sp)
-                log_warning("[stack.c: stack_pop] stack underflow");
+                log_warning("[stack.c: stack_pop] stack underflow\n");
 
         return new_sp;
 }

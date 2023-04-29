@@ -27,7 +27,7 @@ log_init(const char *log_dir_path)
         /* if the log file fails to open, the emulator will continue but
            it isn't going to log anything */
         if (!log_file)
-                log_warning("[log.c: log_init] failed to open log file: %s",
+                log_warning("[log.c: log_init] failed to open log file: %s\n",
                             strerror(errno));
         
         free(log_file_path);
@@ -46,7 +46,6 @@ log_vfprintf(FILE *stream, const char *initial, const char *fmt, va_list args)
                 fprintf(stream, "%s", initial);
 
         vfprintf(stream, fmt, args);
-        fprintf(stream, "\n");
 }
 
 void

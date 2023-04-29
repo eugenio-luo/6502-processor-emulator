@@ -9,11 +9,11 @@
 #define TEST_CHECK(N, M, CONDITION)                                     \
         if (CONDITION) {                                                \
                 log_write(GREEN BOLD "[PASSED]"                         \
-                          RESET " %s %d", N, M);                        \
+                          RESET " %s %d\n", N, M);                      \
                 test_set_err(0);                                        \
         } else {                                                        \
                 log_error(RED BOLD "[FAILED]"                           \
-                          RESET " %s %d", N, M);                        \
+                          RESET " %s %d\n", N, M);                      \
                 exit(1);                                                \
         }                                                               \
         

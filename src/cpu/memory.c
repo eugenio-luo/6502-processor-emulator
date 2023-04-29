@@ -33,7 +33,7 @@ static uint8_t memory[RAM_SIZE];
 void
 mem_init(void)
 {
-        log_write("[memory.c: mem_init] memory initialization...");
+        log_write("[memory.c: mem_init] memory initialization...\n");
 
         mem_reset(HARD_RESET);
 }
@@ -43,7 +43,7 @@ mem_reset(int hard)
 {
         if (hard) {
 
-                log_write("[memory.c: mem_reset] memory hard reset");
+                log_write("[memory.c: mem_reset] memory hard reset\n");
 
                 memset(&memory[0], 0, RAM_SIZE);
         }
@@ -67,14 +67,14 @@ mem_get_cartr(addr_t addr)
 static uint8_t
 mem_get_cpu_test(addr_t addr)
 {
-        log_error("[memory.c: mem_get] %x: CPU_TEST_ADDR not implemented yet", addr);
+        log_error("[memory.c: mem_get] %x: CPU_TEST_ADDR not implemented yet\n", addr);
         return -1;
 }
 
 static uint8_t
 mem_get_apu_io(addr_t addr)
 {
-        log_error("[memory.c: mem_get] %x: APU_IO_ADDR not implemented yet", addr);
+        log_error("[memory.c: mem_get] %x: APU_IO_ADDR not implemented yet\n", addr);
         return -1;
 }
 
@@ -85,7 +85,7 @@ mem_get_ppu(addr_t addr)
         if (addr >= PPU_MIRROR_ADDR)
                 real_addr = (addr - PPU_MIRROR_ADDR) % PPU_ADDR_SIZE + PPU_ADDR;
         
-        log_error("[memory.c: mem_get] %x (%x): PPU_ADDR not implemented yet",
+        log_error("[memory.c: mem_get] %x (%x): PPU_ADDR not implemented yet\n",
                   addr, real_addr);
         return -1;
 }
@@ -158,14 +158,14 @@ mem_set_cartr(addr_t addr, uint8_t val)
 static void
 mem_set_cpu_test(addr_t addr, uint8_t val)
 {
-        log_error("[memory.c: mem_set] %x: CPU_TEST_ADDR not implemented yet", addr);
+        log_error("[memory.c: mem_set] %x: CPU_TEST_ADDR not implemented yet\n", addr);
         (void) val;
 }
 
 static void
 mem_set_apu_io(addr_t addr, uint8_t val)
 {
-        log_error("[memory.c: mem_set] %x: APU_IO_ADDR not implemented yet", addr);
+        log_error("[memory.c: mem_set] %x: APU_IO_ADDR not implemented yet\n", addr);
         (void) val;
 }
 
@@ -176,7 +176,7 @@ mem_set_ppu(addr_t addr, uint8_t val)
         if (addr >= PPU_MIRROR_ADDR)
                 real_addr = (addr - PPU_MIRROR_ADDR) % PPU_ADDR_SIZE + PPU_ADDR;
         
-        log_error("[memory.c: mem_set] %x (%x): PPU_ADDR not implemented yet",
+        log_error("[memory.c: mem_set] %x (%x): PPU_ADDR not implemented yet\n",
                   addr, real_addr);
         (void) val;
 }
