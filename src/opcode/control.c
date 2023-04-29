@@ -61,9 +61,14 @@ int
 op_rti(addr_mode_t addr_mode, uint8_t a, uint8_t b)
 {
         (void) addr_mode, (void) a, (void) b;
-        
-        reg_force_flags(stack_top());
+
+        uint8_t new_flag = stack_top();
         stack_pop();
+        uint8_t actual_flag = reg_get_flags();
+        new_flag &= ~(BREAK_COM0 | BREAK_COM1);
+        new_flag |= actual_flag & (BREAK_COM0 | BREAK_COM1);
+        reg_force_flags(new_flag);
+
         reg_set_pc(op_pop_pc());
         return 0;
 }
