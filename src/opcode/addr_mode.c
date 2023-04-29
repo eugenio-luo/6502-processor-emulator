@@ -109,10 +109,11 @@ addr_mode_indr(uint8_t a, uint8_t b)
 static addr_t
 addr_mode_indx_indr(uint8_t a, uint8_t b)
 {
-        addr_t addr = addr_mode_zerox(a, b);
+        (void) b;
+        uint8_t x = reg_get_x();
         
-        uint8_t val0 = mem_get(addr);
-        uint8_t val1 = mem_get(addr + 1);
+        uint8_t val0 = mem_get((a + x) % ZERO_PAGE_SIZE);
+        uint8_t val1 = mem_get((a + x + 1) % ZERO_PAGE_SIZE);
 
         return (val1 << 8) | val0;
 }
