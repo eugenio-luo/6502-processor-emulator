@@ -101,8 +101,8 @@ addr_mode_indr(uint8_t a, uint8_t b)
         addr_t addr = (b << 8) | a;
 
         uint8_t val0 = mem_get(addr);
-        uint8_t val1 = mem_get(addr + 1);
-
+        uint8_t val1 = mem_get((addr & 0xFF00) + (addr + 1) % ZERO_PAGE_SIZE);
+        
         return (val1 << 8) | val0;
 }
 
