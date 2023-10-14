@@ -1,1 +1,1 @@
-# NES-emulator
+# 6502-processor-emulator
