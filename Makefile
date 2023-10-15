@@ -3,7 +3,7 @@ TEST_DIR := test
 INCLUDE_DIR := src/include
 TEST_INCLUDE_DIR := test/include
 LOG_DIR := logs
-OUT_FILE := NES-emulator.out
+OUT_FILE := 6502-processor-emulator.out
 
 CFILES := $(shell find $(SRC_DIR) -type f -name "*.c")
 TEST_CFILES := $(shell find $(TEST_DIR) -type f -name "*.c")

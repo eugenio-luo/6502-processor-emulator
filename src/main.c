@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "system.h"
 #include "log.h"
 
@@ -27,7 +29,16 @@ main(int argc, char **argv)
 #else
 
         sys_load(argv[1]); 
-        /* sys_emu() */
+
+        int mem_start = 0;
+        int obj_cycles = -1;
+
+        if (argc > 3)
+                mem_start = (int) strtol(argv[3], NULL, 0);
+        if (argc > 2)
+                obj_cycles = atoi(argv[2]);
+        
+        sys_emu(mem_start, obj_cycles);
 
 #endif
                 
